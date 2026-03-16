@@ -1,0 +1,50 @@
+[
+  {
+    "id": "RISK-001",
+    "name": "Unpatched systems",
+    "likelihood": 4,
+    "impact": 5,
+    "owner": "IT Operations",
+    "treatment": "Patch monthly, scan weekly with vulnerability scanner"
+  },
+  {
+    "id": "RISK-002",
+    "name": "Phishing attack",
+    "likelihood": 5,
+    "impact": 4,
+    "owner": "Security Team",
+    "treatment": "User awareness training, email filtering, MFA"
+  },
+  {
+    "id": "RISK-003",
+    "name": "Insider threat",
+    "likelihood": 2,
+    "impact": 5,
+    "owner": "HR / Security",
+    "treatment": "Access control reviews, audit logging, separation of duties"
+  },
+  {
+    "id": "RISK-004",
+    "name": "DDoS attack",
+    "likelihood": 3,
+    "impact": 3,
+    "owner": "Network Team",
+    "treatment": "Rate limiting, upstream DDoS filtering service"
+  },
+  {
+    "id": "RISK-005",
+    "name": "Data breach via SQL injection",
+    "likelihood": 3,
+    "impact": 5,
+    "owner": "Development Team",
+    "treatment": "Parameterized queries, input validation, WAF, pen testing"
+  },
+  {
+    "id": "RISK-006",
+    "name": "Lost or stolen laptop",
+    "likelihood": 3,
+    "impact": 2,
+    "owner": "IT Operations",
+    "treatment": "Full disk encryption, MDM remote wipe capability"
+  }
+]
