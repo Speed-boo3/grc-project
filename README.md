@@ -167,3 +167,116 @@ pytest tests/
 The SOC side of this work is in a separate repo: [soc-project](https://github.com/Speed-boo3/soc-project)
 
 GRC defines the controls and policies. The SOC monitors whether those controls are working. They feed each other.
+
+---
+
+## Network Scanning
+
+One of the most important parts of GRC work is checking whether the controls you have on paper actually match reality. The network scanner does exactly that — it scans a host, finds open ports, and turns them into risks that feed directly into the risk register.
+
+> **Important:** Only scan hosts you own or have explicit permission to scan. This tool is intended for use on `localhost` or a private lab network.
+
+---
+
+### How the scan pipeline works
+
+```mermaid
+flowchart TD
+    A[Run scanner.py] --> B[nmap scans the target]
+    B --> C[Open ports found]
+    C --> D{Is the port risky?}
+    D -- Known risky port --> E[Risk level: High]
+    D -- Unexpected port --> F[Risk level: Medium]
+    D -- Expected port 80 443 22 --> G[No risk added]
+    E --> H[Risk JSON output]
+    F --> H
+    H --> I[risk_matrix.py scores and ranks]
+    I --> J[GRC risk register]
+```
+
+---
+
+### What counts as a risky port
+
+```mermaid
+mindmap
+  root((Risky Ports))
+    Plaintext protocols
+      21 FTP
+      23 Telnet
+    Remote access
+      3389 RDP
+      22 SSH on unexpected host
+    Databases exposed
+      3306 MySQL
+      5432 PostgreSQL
+      27017 MongoDB
+      6379 Redis
+    Other
+      445 SMB
+      25 SMTP open relay
+      8080 HTTP without TLS
+```
+
+---
+
+### Running the scanner
+
+```bash
+python grc/network-scan/scanner.py --target localhost --output network_risks.json
+```
+
+Then feed the output straight into the risk matrix:
+
+```bash
+python grc/risk-assessment/risk_matrix.py --file network_risks.json
+```
+
+---
+
+### Example output
+
+When the scanner finds a risky port, it looks like this:
+
+```
+Network Scan Report
+Target  : localhost
+Date    : 2026-03-16 08:00
+============================================================
+
+Open ports found: 4
+  22     ssh
+  80     http
+  443    https
+  3306   mysql (8.0.32)
+
+Risks identified: 1
+
+  ID           Risk                                Level
+  ------------------------------------------------------------
+  NET-3306     MySQL exposed on port 3306          High
+
+Details:
+
+  NET-3306 -- MySQL exposed on port 3306
+    Port     : 3306 (mysql)
+    Reason   : Database should not be exposed outside the local network.
+    Score    : 16 -> High
+    Treatment: Close the port if not needed, or restrict with firewall rules.
+```
+
+---
+
+### How it connects to the rest of the project
+
+```mermaid
+flowchart LR
+    A[Network scanner] -->|Finds open ports| B[Risk JSON]
+    B -->|Fed into| C[Risk matrix]
+    C -->|Scored risks| D[GRC report]
+    D -->|Low compliance score| E[Policy updated]
+    E -->|New control added| F[SOC monitors for violations]
+    F -->|Alert fires| A
+```
+
+This closes the loop between SOC and GRC. The scanner finds a weakness, GRC registers it as a risk, the policy is updated to address it, and the SOC monitors for violations going forward.
