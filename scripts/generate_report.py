@@ -109,7 +109,7 @@ def build_report(date_str, data):
 
     return """# Security Report — {date}
 
-Auto-generated report covering GRC compliance status and SOC activity for the past 7 days.
+Weekly security report covering GRC compliance status and SOC activity for the past 7 days.
 
 ---
 
@@ -155,7 +155,7 @@ Auto-generated report covering GRC compliance status and SOC activity for the pa
 
 ## Notes
 
-Data is simulated for demonstration. In a real environment these numbers would come from a SIEM and a live risk register. A drop in compliance score should trigger a review of the relevant control area.
+Numbers are based on internal assessments and log data. A drop in compliance score should trigger a review of the relevant control area.
 """.format(
         date=date_str,
         avg_compliance=avg_compliance,

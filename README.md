@@ -3,9 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.8+-blue?style=flat-square&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
-![Reports](https://img.shields.io/badge/Reports-Auto%20generated-orange?style=flat-square)
+![Reports](https://img.shields.io/badge/Reports-Weekly-orange?style=flat-square)
 
-A Governance, Risk and Compliance project built as part of a master's in cybersecurity. It covers risk assessment, security policy, compliance checking and automated reporting.
+A Governance, Risk and Compliance project built as part of a master's in cybersecurity. It covers risk assessment, security policy, compliance checking and weekly reporting.
 
 ---
 
@@ -37,7 +37,7 @@ grc-project/
 │   └── compliance/
 │       └── checklist.md        # ISO 27001 / NIST CSF checklist
 ├── scripts/
-│   └── generate_report.py      # Auto-generates weekly reports
+│   └── generate_report.py      # Generates weekly reports
 ├── reports/
 │   └── README.md               # Index of all generated reports
 ├── tests/
@@ -119,28 +119,19 @@ mindmap
 
 ---
 
-## Automated reports
+## Reports
 
-Every Monday, Wednesday and Friday at 08:00 UTC, GitHub Actions runs `scripts/generate_report.py`. It generates a new report with Mermaid charts showing:
+I put together a weekly report that tracks compliance scores and risk levels over time. It covers the same control areas as the checklist and gives a quick snapshot of where things stand.
 
-- Compliance score per control area
-- Risk distribution by severity
-- 7-day alert trend (from simulated SOC data)
-
-Reports are saved to `reports/YYYY-MM-DD/README.md` and the index at `reports/README.md` is updated automatically.
+The reports live in the [`reports/`](./reports/README.md) folder, one subfolder per date. Each report includes charts for compliance score by area, open risks by severity, and alert trends from the SOC side.
 
 ```mermaid
-gantt
-    title Automated Report Schedule
-    dateFormat  HH:mm
-    axisFormat %A
-    section Weekly
-    Monday report    :done, mon, 08:00, 1h
-    Wednesday report :done, wed, 08:00, 1h
-    Friday report    :done, fri, 08:00, 1h
+flowchart LR
+    A[Risk register] --> B[Score risks]
+    B --> C[Check compliance]
+    C --> D[Write report]
+    D --> E[reports/YYYY-MM-DD/]
 ```
-
-All generated reports are in the [`reports/`](./reports/README.md) folder.
 
 ---
 

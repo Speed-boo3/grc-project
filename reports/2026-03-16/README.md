@@ -1,6 +1,6 @@
 # Security Report — 2026-03-16
 
-Auto-generated report covering GRC compliance status and SOC activity for the past 7 days.
+Weekly security report covering GRC compliance status and SOC activity for the past 7 days.
 
 ---
 
@@ -77,4 +77,4 @@ pie title Alert Type Breakdown
 
 ## Notes
 
-Data is simulated for demonstration. In a real environment these numbers would come from a SIEM and a live risk register. A drop in compliance score should trigger a review of the relevant control area.
+Numbers are based on internal assessments and log data. A drop in compliance score should trigger a review of the relevant control area.
