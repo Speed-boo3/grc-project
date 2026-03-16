@@ -101,20 +101,34 @@ RISK-006  Lost or stolen laptop          6       Medium     IT Operations
 
 The checklist maps to two frameworks:
 
+| ISO 27001 | NIST CSF |
+|---|---|
+| Access Control | Identify |
+| Asset Management | Protect |
+| Incident Management | Detect |
+| Cryptography | Respond |
+| | Recover |
+
 ```mermaid
-mindmap
-  root((Compliance))
-    ISO 27001
-      Access Control
-      Asset Management
-      Incident Management
-      Cryptography
-    NIST CSF
-      Identify
-      Protect
-      Detect
-      Respond
-      Recover
+flowchart LR
+    subgraph ISO 27001
+        A[Access Control]
+        B[Asset Management]
+        C[Incident Management]
+        D[Cryptography]
+    end
+    subgraph NIST CSF
+        E[Identify]
+        F[Protect]
+        G[Detect]
+        H[Respond]
+        I[Recover]
+    end
+    A --> F
+    B --> E
+    C --> H
+    C --> I
+    D --> F
 ```
 
 ---
@@ -189,25 +203,18 @@ flowchart TD
 
 ### What counts as a risky port
 
-```mermaid
-mindmap
-  root((Risky Ports))
-    Plaintext protocols
-      21 FTP
-      23 Telnet
-    Remote access
-      3389 RDP
-      22 SSH on unexpected host
-    Databases exposed
-      3306 MySQL
-      5432 PostgreSQL
-      27017 MongoDB
-      6379 Redis
-    Other
-      445 SMB
-      25 SMTP open relay
-      8080 HTTP without TLS
-```
+| Port | Service | Risk |
+|---|---|---|
+| 21 | FTP | Sends passwords in plaintext |
+| 23 | Telnet | Everything sent unencrypted |
+| 25 | SMTP | Open relay risk |
+| 445 | SMB | Main ransomware vector |
+| 3389 | RDP | Constant brute force target |
+| 3306 | MySQL | Database should not be public |
+| 5432 | PostgreSQL | Database should not be public |
+| 6379 | Redis | Often runs with no authentication |
+| 27017 | MongoDB | Many breaches from exposed instances |
+| 8080 | HTTP Alt | Dev servers without TLS |
 
 ---
 
