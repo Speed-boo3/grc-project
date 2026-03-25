@@ -63,12 +63,9 @@ flowchart LR
     style ORG fill:#2a2a2a,stroke:#aaaaaa,color:#ffffff
 ```
 
-A GRC analyst answers questions like:
-- What are the biggest risks facing the organisation right now?
-- Do our security controls actually match what the policy says?
-- Are we compliant with ISO 27001, NIST or other frameworks?
-- What happens if this risk materialises — how bad would it be?
-- How do we prioritise what to fix first?
+A GRC analyst answers questions like: What are the biggest risks right now? Do our controls actually match what the policy says? Are we compliant with ISO 27001 or NIST? What happens if this risk materialises? How do we decide what to fix first?
+
+These are strategic questions, not technical ones. GRC is where security meets business.
 
 ---
 
@@ -113,13 +110,23 @@ Compliance means verifying that your actual security controls match the requirem
 
 ## GRC categories — what GRC covers
 
-| Category | What it involves | Tools in this project |
-|---|---|---|
-| Risk Assessment | Identify, score and rank risks | `risk_matrix.py` |
-| Network Exposure | Find gaps between policy and reality | `scanner.py` |
-| Policy Management | Define rules for the organisation | `security_policy.md` |
-| Compliance Checking | Verify controls against frameworks | `checklist.md` |
-| Reporting | Track posture over time | `generate_report.py` |
+<div align="center">
+
+![Risk Assessment](https://img.shields.io/badge/Risk_Assessment-Identify_score_and_rank_risks-1a3a8a?style=for-the-badge&logo=target&logoColor=white)
+![Network Exposure](https://img.shields.io/badge/Network_Exposure-Find_gaps_between_policy_and_reality-cc2200?style=for-the-badge&logo=nmap&logoColor=white)
+![Policy Management](https://img.shields.io/badge/Policy_Management-Define_rules_for_the_organisation-1a5a2a?style=for-the-badge&logo=gitbook&logoColor=white)
+![Compliance](https://img.shields.io/badge/Compliance_Checking-Verify_controls_against_frameworks-5a1a5a?style=for-the-badge&logo=checkmarx&logoColor=white)
+![Reporting](https://img.shields.io/badge/Reporting-Track_posture_over_time-bb7700?style=for-the-badge&logo=grafana&logoColor=white)
+
+</div>
+
+| Category | Tool |
+|---|---|
+| Risk Assessment | `grc/risk-assessment/risk_matrix.py` |
+| Network Exposure | `grc/network-scan/scanner.py` |
+| Policy Management | `grc/policies/security_policy.md` |
+| Compliance Checking | `grc/compliance/checklist.md` |
+| Reporting | `scripts/generate_report.py` |
 
 ---
 
@@ -144,12 +151,16 @@ quadrantChart
     Lost Laptop: [0.35, 0.55]
 ```
 
-| Score | Level | What to do |
-|---|---|---|
-| 1 – 4 | Low | Accept or monitor |
-| 5 – 9 | Medium | Treat within 90 days |
-| 10 – 16 | High | Treat within 30 days |
-| 17 – 25 | Critical | Treat immediately |
+<div align="center">
+
+![Low](https://img.shields.io/badge/1--4-Low-007722?style=for-the-badge&logoColor=white)
+![Medium](https://img.shields.io/badge/5--9-Medium-bb7700?style=for-the-badge&logoColor=white)
+![High](https://img.shields.io/badge/10--16-High-cc4400?style=for-the-badge&logoColor=white)
+![Critical](https://img.shields.io/badge/17--25-Critical-cc2200?style=for-the-badge&logoColor=white)
+
+</div>
+
+Accept or monitor the Low ones. Treat Medium within 90 days. High within 30 days. Critical needs immediate action — stop what you are doing and deal with it.
 
 **Example output:**
 
@@ -195,18 +206,20 @@ flowchart TD
 
 **Ports that automatically create a High risk entry:**
 
-| Port | Service | Why it is dangerous |
-|---|---|---|
-| 21 | FTP | Sends credentials in plaintext |
-| 23 | Telnet | Everything sent unencrypted |
-| 25 | SMTP | Open relay allows spam and spoofing |
-| 445 | SMB | Primary ransomware vector — WannaCry used this |
-| 3389 | RDP | Constant brute force and exploitation target |
-| 3306 | MySQL | Databases must never be publicly exposed |
-| 5432 | PostgreSQL | Same as MySQL |
-| 6379 | Redis | Often runs with no authentication by default |
-| 27017 | MongoDB | Countless breaches from exposed instances |
-| 8080 | HTTP Alt | Dev servers often running without TLS |
+<div align="center">
+
+![FTP 21](https://img.shields.io/badge/21_FTP-Sends_credentials_in_plaintext-cc2200?style=flat-square&logoColor=white)
+![Telnet 23](https://img.shields.io/badge/23_Telnet-Everything_sent_unencrypted-cc2200?style=flat-square&logoColor=white)
+![SMTP 25](https://img.shields.io/badge/25_SMTP-Open_relay_allows_spoofing-cc2200?style=flat-square&logoColor=white)
+![SMB 445](https://img.shields.io/badge/445_SMB-Primary_ransomware_vector-cc2200?style=flat-square&logoColor=white)
+![RDP 3389](https://img.shields.io/badge/3389_RDP-Constant_brute_force_target-cc2200?style=flat-square&logoColor=white)
+![MySQL 3306](https://img.shields.io/badge/3306_MySQL-Databases_must_not_be_public-cc2200?style=flat-square&logoColor=white)
+![PostgreSQL 5432](https://img.shields.io/badge/5432_PostgreSQL-Same_as_MySQL-cc2200?style=flat-square&logoColor=white)
+![Redis 6379](https://img.shields.io/badge/6379_Redis-Often_runs_with_no_auth-cc2200?style=flat-square&logoColor=white)
+![MongoDB 27017](https://img.shields.io/badge/27017_MongoDB-Many_breaches_from_exposed_instances-cc2200?style=flat-square&logoColor=white)
+![HTTP Alt 8080](https://img.shields.io/badge/8080_HTTP_Alt-Dev_servers_without_TLS-cc2200?style=flat-square&logoColor=white)
+
+</div>
 
 ---
 
@@ -253,14 +266,16 @@ flowchart LR
 
 **Coverage in this project:**
 
-| ISO 27001 Domain | NIST CSF Function | Checklist section |
-|---|---|---|
-| Access Control | Protect | Access Management |
-| Asset Management | Identify | Endpoint Security |
-| Incident Management | Respond, Recover | Incident Response |
-| Cryptography | Protect | Data Protection |
-| Physical Security | Protect | Physical Security |
-| Logging and Monitoring | Detect | Logging and Monitoring |
+<div align="center">
+
+![Access Control](https://img.shields.io/badge/Access_Control-ISO_27001_→_NIST_Protect-1a3a8a?style=flat-square&logoColor=white)
+![Asset Management](https://img.shields.io/badge/Asset_Management-ISO_27001_→_NIST_Identify-1a3a8a?style=flat-square&logoColor=white)
+![Incident Management](https://img.shields.io/badge/Incident_Management-ISO_27001_→_NIST_Respond_%26_Recover-1a3a8a?style=flat-square&logoColor=white)
+![Cryptography](https://img.shields.io/badge/Cryptography-ISO_27001_→_NIST_Protect-1a3a8a?style=flat-square&logoColor=white)
+![Physical Security](https://img.shields.io/badge/Physical_Security-ISO_27001_→_NIST_Protect-1a3a8a?style=flat-square&logoColor=white)
+![Logging](https://img.shields.io/badge/Logging_%26_Monitoring-ISO_27001_→_NIST_Detect-1a3a8a?style=flat-square&logoColor=white)
+
+</div>
 
 ---
 
@@ -312,13 +327,26 @@ All reports are in the [`reports/`](./reports/README.md) folder.
 
 ## Tools
 
-| Tool | File | What it does |
-|---|---|---|
-| Risk Matrix | `grc/risk-assessment/risk_matrix.py` | Scores and ranks risks using likelihood x impact |
-| Network Scanner | `grc/network-scan/scanner.py` | Finds exposed ports and converts them to risk entries |
-| Security Policy | `grc/policies/security_policy.md` | Policy template covering key control areas |
-| Compliance Checklist | `grc/compliance/checklist.md` | ISO 27001 and NIST CSF control checklist |
-| Report Generator | `scripts/generate_report.py` | Generates weekly compliance and risk reports |
+<div align="center">
+<img src="https://skillicons.dev/icons?i=python,bash,linux&perline=3" />
+</div>
+
+<br/>
+
+**Risk Matrix** `grc/risk-assessment/risk_matrix.py`
+Scores and ranks every risk using likelihood x impact. Run it against the sample register or plug in your own risks.
+
+**Network Scanner** `grc/network-scan/scanner.py`
+Wraps nmap and converts risky open ports directly into risk register entries. Bridges the gap between policy and reality.
+
+**Security Policy** `grc/policies/security_policy.md`
+A real security policy template covering access control, patch management, incident response, data handling and physical security.
+
+**Compliance Checklist** `grc/compliance/checklist.md`
+A checklist built from ISO 27001 and NIST CSF controls. Work through it and score your compliance coverage.
+
+**Report Generator** `scripts/generate_report.py`
+Runs automatically on Monday, Wednesday and Friday. Generates a markdown report with charts and saves it to `reports/YYYY-MM-DD/`.
 
 ---
 
