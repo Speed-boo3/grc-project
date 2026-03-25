@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GRC Quiz — Test your knowledge</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+  .header { text-align: center; margin-bottom: 40px; width: 100%; max-width: 750px; }
+  .header h1 { font-size: 2.2rem; color: #4488ff; letter-spacing: 3px; margin-bottom: 8px; }
+  .header .sub { color: #8b949e; font-size: 0.9rem; }
+  .container { width: 100%; max-width: 750px; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .progress-bar-bg { flex: 1; background: #161b22; border-radius: 4px; height: 6px; overflow: hidden; border: 1px solid #30363d; }
+  .progress-bar { height: 100%; background: #4488ff; border-radius: 4px; transition: width 0.4s ease; }
+  .progress-text { color: #8b949e; font-size: 0.8rem; white-space: nowrap; }
+  .score-live { color: #00ff41; font-size: 0.8rem; white-space: nowrap; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 34px; margin-bottom: 20px; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .q-number { color: #4488ff; font-size: 0.78rem; letter-spacing: 1px; }
+  .q-category { background: #0d1117; border: 1px solid #30363d; border-radius: 10px; padding: 3px 10px; font-size: 0.75rem; color: #8b949e; }
+  .hint { color: #8b949e; font-size: 0.78rem; margin-bottom: 18px; font-style: italic; }
+  .q-text { font-size: 1.1rem; line-height: 1.65; color: #e6edf3; margin-bottom: 28px; }
+  .options { display: flex; flex-direction: column; gap: 11px; }
+  .option {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 9px;
+    padding: 14px 18px; cursor: pointer; font-family: inherit; font-size: 0.93rem;
+    color: #e6edf3; text-align: left; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    width: 100%; display: flex; align-items: center; gap: 12px;
+  }
+  .option-letter {
+    background: #30363d; border-radius: 5px; width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: bold; flex-shrink: 0; transition: background 0.15s;
+  }
+  .option:hover:not(:disabled) { border-color: #4488ff; background: #0a0a1a; transform: translateX(5px); }
+  .option:hover:not(:disabled) .option-letter { background: #4488ff; }
+  .option.correct { border-color: #00ff41; background: #0a2e0a; }
+  .option.correct .option-letter { background: #00ff41; color: #000; }
+  .option.wrong { border-color: #ff4444; background: #2e0a0a; }
+  .option.wrong .option-letter { background: #ff4444; color: #fff; }
+  .option:disabled { cursor: default; }
+  .feedback { margin-top: 20px; padding: 16px 18px; border-radius: 9px; font-size: 0.88rem; line-height: 1.6; display: none; }
+  .feedback.correct { background: #0a2e0a; border: 1px solid #00ff41; color: #00ff41; display: block; }
+  .feedback.wrong { background: #2e0a0a; border: 1px solid #ff4444; color: #ff8888; display: block; }
+  .next-btn {
+    margin-top: 22px; background: #4488ff; color: #ffffff; border: none;
+    border-radius: 9px; padding: 14px 32px; font-family: inherit; font-size: 0.95rem;
+    font-weight: bold; cursor: pointer; display: none; transition: background 0.2s, transform 0.1s; letter-spacing: 1px;
+  }
+  .next-btn:hover { background: #2255cc; transform: translateY(-2px); }
+  .results {
+    background: #161b22; border: 1px solid #30363d; border-radius: 14px;
+    padding: 44px 36px; text-align: center; display: none; width: 100%; max-width: 750px;
+  }
+  .results h2 { font-size: 1.8rem; color: #4488ff; margin-bottom: 6px; letter-spacing: 2px; }
+  .results .subtitle { color: #8b949e; margin-bottom: 36px; font-size: 0.85rem; }
+  .score-ring {
+    width: 150px; height: 150px; border-radius: 50%; border: 3px solid #4488ff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 36px;
+  }
+  .score-number { font-size: 2.8rem; font-weight: bold; color: #4488ff; }
+  .score-label { font-size: 0.72rem; color: #8b949e; }
+  .stats { display: flex; justify-content: center; gap: 50px; margin-bottom: 30px; }
+  .stat { text-align: center; }
+  .stat-n { font-size: 2rem; font-weight: bold; display: block; }
+  .stat-n.green { color: #00ff41; }
+  .stat-n.red { color: #ff4444; }
+  .stat-label { color: #8b949e; font-size: 0.78rem; }
+  .grade-box { background: #0d1117; border: 1px solid #30363d; border-radius: 9px; padding: 18px; margin-bottom: 30px; font-size: 0.92rem; color: #e6edf3; line-height: 1.6; }
+  .cat-breakdown { margin-bottom: 30px; text-align: left; }
+  .cat-breakdown h3 { color: #8b949e; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 14px; text-transform: uppercase; }
+  .cat-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .cat-name { font-size: 0.82rem; color: #e6edf3; width: 180px; flex-shrink: 0; }
+  .cat-bar-bg { flex: 1; background: #0d1117; border-radius: 4px; height: 8px; overflow: hidden; border: 1px solid #30363d; }
+  .cat-bar { height: 100%; border-radius: 4px; background: #4488ff; }
+  .cat-score { font-size: 0.8rem; color: #8b949e; width: 40px; text-align: right; }
+  .btn-row { display: flex; gap: 14px; justify-content: center; }
+  .restart-btn { background: transparent; border: 1px solid #4488ff; color: #4488ff; border-radius: 9px; padding: 12px 28px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; letter-spacing: 1px; }
+  .restart-btn:hover { background: #0a0a1a; }
+  .back-btn { background: transparent; border: 1px solid #30363d; color: #8b949e; border-radius: 9px; padding: 12px 28px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-flex; align-items: center; letter-spacing: 1px; }
+  .back-btn:hover { background: #161b22; color: #e6edf3; }
+  .start-screen { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 44px 36px; text-align: center; width: 100%; max-width: 750px; }
+  .start-screen h2 { color: #4488ff; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px; }
+  .start-screen p { color: #8b949e; font-size: 0.88rem; line-height: 1.7; margin-bottom: 20px; }
+  .topic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; text-align: left; }
+  .topic-item { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; font-size: 0.83rem; color: #e6edf3; }
+  .topic-item span { color: #4488ff; margin-right: 8px; font-weight: bold; }
+  .start-btn { background: #4488ff; color: #ffffff; border: none; border-radius: 9px; padding: 15px 40px; font-family: inherit; font-size: 1rem; font-weight: bold; cursor: pointer; letter-spacing: 1px; transition: background 0.2s, transform 0.1s; }
+  .start-btn:hover { background: #2255cc; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>// GRC QUIZ</h1>
+  <p class="sub">Governance, Risk and Compliance — for students learning security management</p>
+</div>
+
+<div class="start-screen" id="startScreen">
+  <h2>// READY TO TEST YOUR GRC KNOWLEDGE?</h2>
+  <p>This quiz covers the core concepts every GRC analyst needs to know. Built for students learning security governance from scratch. Each question includes a full explanation so you learn as you go.</p>
+  <div class="topic-grid">
+    <div class="topic-item"><span>01</span> What is GRC</div>
+    <div class="topic-item"><span>02</span> Governance</div>
+    <div class="topic-item"><span>03</span> Risk Management</div>
+    <div class="topic-item"><span>04</span> Risk Scoring</div>
+    <div class="topic-item"><span>05</span> ISO 27001</div>
+    <div class="topic-item"><span>06</span> NIST CSF</div>
+    <div class="topic-item"><span>07</span> Compliance</div>
+    <div class="topic-item"><span>08</span> Network Exposure</div>
+  </div>
+  <button class="start-btn" onclick="startQuiz()">START QUIZ &rarr;</button>
+</div>
+
+<div class="container" id="quizContainer" style="display:none">
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+    <span class="progress-text" id="progressText"></span>
+    <span class="score-live" id="scoreLive"></span>
+  </div>
+  <div class="card" id="card">
+    <div class="card-top">
+      <span class="q-number" id="qNumber"></span>
+      <span class="q-category" id="qCategory"></span>
+    </div>
+    <p class="hint" id="qHint"></p>
+    <p class="q-text" id="qText"></p>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">NEXT &rarr;</button>
+  </div>
+</div>
+
+<div class="results" id="results">
+  <h2>// RESULTS</h2>
+  <p class="subtitle">Quiz complete</p>
+  <div class="score-ring">
+    <span class="score-number" id="scorePercent"></span>
+    <span class="score-label">score</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="stat-n green" id="correctCount"></span><span class="stat-label">Correct</span></div>
+    <div class="stat"><span class="stat-n red" id="wrongCount"></span><span class="stat-label">Wrong</span></div>
+  </div>
+  <div class="grade-box" id="gradeText"></div>
+  <div class="cat-breakdown">
+    <h3>Score by category</h3>
+    <div id="catBreakdown"></div>
+  </div>
+  <div class="btn-row">
+    <a class="back-btn" href="https://github.com/Speed-boo3/grc-project">Back to project</a>
+    <button class="restart-btn" onclick="restart()">TRY AGAIN</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    category: "What is GRC",
+    hint: "GRC stands for three distinct but connected disciplines.",
+    q: "What does GRC stand for in cybersecurity?",
+    options: ["General Risk Control", "Governance, Risk and Compliance", "Global Regulation and Certification", "Governance, Response and Containment"],
+    answer: 1,
+    explanation: "GRC stands for Governance, Risk and Compliance. Together these three disciplines form the strategic framework organisations use to manage their security posture and meet regulatory requirements."
+  },
+  {
+    category: "What is GRC",
+    hint: "Think about what separates GRC from SOC work.",
+    q: "What is the main difference between GRC and SOC work?",
+    options: [
+      "GRC is only for large companies, SOC is for small ones",
+      "SOC responds to live threats in real time, GRC ensures the right controls and policies are in place to prevent them",
+      "GRC involves hacking, SOC involves writing policies",
+      "There is no difference — they are the same job"
+    ],
+    answer: 1,
+    explanation: "A SOC detects and responds to active threats. GRC works proactively — defining policies, assessing risks and verifying controls so that fewer threats materialise in the first place. They complement each other."
+  },
+  {
+    category: "Governance",
+    hint: "Think about what governance actually produces.",
+    q: "What is the purpose of a security policy in an organisation?",
+    options: [
+      "To make the company look good during audits",
+      "To define the rules, responsibilities and expected behaviour for keeping systems and data secure",
+      "To list all the software installed on company computers",
+      "To track employee attendance"
+    ],
+    answer: 1,
+    explanation: "A security policy sets out the rules everyone in the organisation must follow regarding security. It covers areas like access control, password requirements, acceptable use and incident reporting. Without a policy, there is no baseline to measure against."
+  },
+  {
+    category: "Governance",
+    hint: "Least privilege is a core governance principle.",
+    q: "What does the principle of least privilege mean?",
+    options: [
+      "Admins should never use their own accounts",
+      "Everyone in the company should have the same level of access",
+      "Users and systems should only have the minimum permissions needed to do their job",
+      "Passwords should be as short as possible to reduce complexity"
+    ],
+    answer: 2,
+    explanation: "Least privilege means giving users exactly the access they need and nothing more. If an account is compromised, limited permissions reduce the damage the attacker can do. It is one of the most important principles in access control."
+  },
+  {
+    category: "Risk Management",
+    hint: "Risk management follows a clear lifecycle.",
+    q: "What are the four main steps in a risk management process?",
+    options: [
+      "Scan, Exploit, Report, Patch",
+      "Identify, Assess, Treat, Monitor",
+      "Plan, Do, Check, Act",
+      "Detect, Analyse, Respond, Recover"
+    ],
+    answer: 1,
+    explanation: "Risk management follows four steps: Identify the risk, Assess how likely and severe it is, Treat it by accepting, avoiding, transferring or mitigating it, and Monitor it over time to make sure the treatment is working."
+  },
+  {
+    category: "Risk Management",
+    hint: "There are four standard ways to deal with a risk.",
+    q: "An organisation decides to buy cyber insurance instead of fixing a vulnerability. What risk treatment strategy is this?",
+    options: ["Risk avoidance", "Risk mitigation", "Risk transfer", "Risk acceptance"],
+    answer: 2,
+    explanation: "Risk transfer means shifting the financial impact of a risk to a third party — most commonly through insurance. The vulnerability still exists but the financial consequence is covered. This is different from mitigation, which would involve actually fixing the vulnerability."
+  },
+  {
+    category: "Risk Scoring",
+    hint: "The standard formula is simple multiplication.",
+    q: "A risk has a likelihood score of 4 and an impact score of 5. What is the risk score and level?",
+    options: [
+      "Score 9, Medium",
+      "Score 20, Critical",
+      "Score 45, Extreme",
+      "Score 4, Low"
+    ],
+    answer: 1,
+    explanation: "Risk score = likelihood x impact = 4 x 5 = 20. A score of 17-25 is rated Critical. This means immediate action is required — the risk is both very likely to occur and would have a severe impact."
+  },
+  {
+    category: "Risk Scoring",
+    hint: "Think about what likelihood and impact actually measure.",
+    q: "What is the difference between likelihood and impact in risk scoring?",
+    options: [
+      "They mean the same thing",
+      "Likelihood measures how probable the risk is to occur. Impact measures how severe the consequences would be if it did.",
+      "Impact measures how quickly a risk can be fixed. Likelihood measures how old the vulnerability is.",
+      "Likelihood is only used for technical risks. Impact is only used for business risks."
+    ],
+    answer: 1,
+    explanation: "Likelihood is the probability that the risk materialises — for example, phishing attacks are very likely (score 5). Impact is how bad the consequences would be if it happened — a data breach might have critical impact (score 5). Multiply them to get the overall risk score."
+  },
+  {
+    category: "ISO 27001",
+    hint: "ISO 27001 is the most recognised international standard in this space.",
+    q: "What is ISO 27001?",
+    options: [
+      "A US government cybersecurity regulation",
+      "The international standard for information security management systems",
+      "A framework for software development best practices",
+      "A certification for individual security professionals"
+    ],
+    answer: 1,
+    explanation: "ISO 27001 is the international standard that defines how to establish, implement, maintain and continually improve an Information Security Management System (ISMS). Organisations can get certified to prove they meet the standard."
+  },
+  {
+    category: "ISO 27001",
+    hint: "Think about what ISO 27001 Annex A contains.",
+    q: "In ISO 27001, what is an 'Annex A control'?",
+    options: [
+      "A list of approved security vendors",
+      "A specific security measure that an organisation should implement to manage information security risks",
+      "A type of audit report",
+      "A software patch requirement"
+    ],
+    answer: 1,
+    explanation: "Annex A of ISO 27001 contains 93 security controls across four themes: Organisational, People, Physical and Technological. Organisations select which controls apply to them based on their risk assessment and document why they excluded any."
+  },
+  {
+    category: "NIST CSF",
+    hint: "NIST CSF is organised around five core functions.",
+    q: "What are the five core functions of the NIST Cybersecurity Framework?",
+    options: [
+      "Plan, Prepare, Execute, Review, Improve",
+      "Identify, Protect, Detect, Respond, Recover",
+      "Govern, Assess, Implement, Monitor, Report",
+      "Scan, Analyse, Contain, Eradicate, Close"
+    ],
+    answer: 1,
+    explanation: "The NIST CSF is built around five functions: Identify (understand your assets and risks), Protect (implement safeguards), Detect (discover threats), Respond (take action on incidents) and Recover (restore normal operations). They form a complete security lifecycle."
+  },
+  {
+    category: "NIST CSF",
+    hint: "Think about which NIST function deals with finding threats before they cause damage.",
+    q: "A company implements a SIEM to monitor for suspicious activity. Which NIST CSF function does this support?",
+    options: ["Identify", "Protect", "Detect", "Recover"],
+    answer: 2,
+    explanation: "The Detect function is about identifying cybersecurity events in a timely manner. A SIEM collects and correlates logs to surface suspicious activity — this is a core detection capability."
+  },
+  {
+    category: "Compliance",
+    hint: "Compliance is about proving your controls work, not just having them.",
+    q: "What is the difference between being compliant and being secure?",
+    options: [
+      "They mean the same thing",
+      "Compliance means meeting the minimum requirements of a framework. Being secure means your controls actually work and protect against real threats.",
+      "Compliance is more important than security",
+      "Security is only relevant for technical teams, compliance is only for management"
+    ],
+    answer: 1,
+    explanation: "Compliance means you meet the documented requirements of a framework like ISO 27001. But compliance is a snapshot — it does not guarantee you are actually secure. An organisation can tick every compliance box while still being vulnerable to attacks that the framework does not cover."
+  },
+  {
+    category: "Compliance",
+    hint: "Think about what a gap analysis reveals.",
+    q: "What does a compliance gap analysis identify?",
+    options: [
+      "Vulnerabilities in the company network",
+      "The difference between what controls the framework requires and what controls the organisation currently has in place",
+      "Which employees have not completed security training",
+      "Open ports on servers"
+    ],
+    answer: 1,
+    explanation: "A gap analysis compares the required controls from a framework against the organisation's current state. The gaps are the controls that are missing or not fully implemented — these become the priority areas to fix."
+  },
+  {
+    category: "Network Exposure",
+    hint: "GRC is not just paperwork — it involves verifying the technical reality.",
+    q: "Why does a GRC analyst use a network scanner like nmap?",
+    options: [
+      "To attack other organisations",
+      "To verify that the network configuration matches what the security policy says it should look like",
+      "To speed up the network",
+      "To find passwords stored on servers"
+    ],
+    answer: 1,
+    explanation: "A network scanner helps a GRC analyst verify that controls are actually in place. If the policy says port 3306 should not be publicly accessible but nmap finds it open, that is a compliance gap and a risk that needs to be addressed."
+  },
+  {
+    category: "Network Exposure",
+    hint: "Think about what makes a database port risky when exposed.",
+    q: "Why is exposing a MySQL database on port 3306 to the internet considered a critical risk?",
+    options: [
+      "MySQL uses too much bandwidth",
+      "Databases contain sensitive data and exposed database ports allow direct attacks, brute force and data exfiltration without going through the application layer",
+      "Port 3306 is only allowed on internal networks by law",
+      "It causes the database to run slower"
+    ],
+    answer: 1,
+    explanation: "Databases should only be accessible to the application servers that need them. Exposing a database port publicly bypasses the application layer entirely, allowing attackers to attempt direct connections, brute force credentials and extract data. Many major breaches have started this way."
+  },
+  {
+    category: "Risk Management",
+    hint: "Think about how often risks should be reviewed.",
+    q: "Why is it important to review and update the risk register regularly?",
+    options: [
+      "To keep the document looking professional",
+      "Because the threat landscape changes — new vulnerabilities, new attack techniques and changes to the organisation create new risks that did not exist before",
+      "Regulations require a new document every quarter",
+      "Risk registers do not need to be updated once they are created"
+    ],
+    answer: 1,
+    explanation: "The threat landscape is constantly changing. New vulnerabilities are discovered, organisations deploy new systems, staff change and attackers develop new techniques. A risk register that was accurate six months ago may miss critical risks today. Regular reviews keep it relevant."
+  },
+  {
+    category: "Governance",
+    hint: "Think about what happens after an incident is resolved.",
+    q: "What is the purpose of a post-incident report in a GRC context?",
+    options: [
+      "To assign blame to the person who made the mistake",
+      "To document what happened, what controls failed, and what needs to be improved to prevent recurrence",
+      "To notify the media about the breach",
+      "To satisfy insurance requirements only"
+    ],
+    answer: 1,
+    explanation: "A post-incident report is a governance document that captures lessons learned. It identifies which controls failed, whether the incident was covered in the risk register, and what policy or technical changes are needed. It feeds directly back into the risk management process."
+  },
+  {
+    category: "ISO 27001",
+    hint: "Certification has a lifecycle.",
+    q: "How often must an ISO 27001 certified organisation be audited to maintain certification?",
+    options: [
+      "Once only — certification does not expire",
+      "Every 10 years",
+      "Annually for surveillance audits, with a full recertification audit every 3 years",
+      "Every month"
+    ],
+    answer: 2,
+    explanation: "ISO 27001 certification lasts three years. During that period, annual surveillance audits check that the ISMS is still being maintained. After three years, a full recertification audit is required. This ensures the organisation's security posture is continuously maintained."
+  },
+  {
+    category: "What is GRC",
+    hint: "Think about the relationship between GRC and security investment decisions.",
+    q: "How does GRC help an organisation prioritise its security budget?",
+    options: [
+      "It does not — GRC is only about documentation",
+      "By quantifying risks with scores, GRC helps leadership understand which threats are most likely and most damaging, so budget goes to the most critical controls first",
+      "By randomly selecting which controls to fund each year",
+      "GRC always recommends buying the most expensive tools"
+    ],
+    answer: 1,
+    explanation: "A risk register with scored risks gives leadership a clear picture of where the biggest threats are. Critical risks with high likelihood and high impact get prioritised. This means security investment is driven by evidence rather than gut feeling or vendor marketing."
+  }
+];
+
+let current = 0, correct = 0, wrong = 0, answered = false;
+const letters = ["A","B","C","D"];
+const catScores = {};
+
+function startQuiz() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+  load();
+}
+
+function load() {
+  answered = false;
+  const q = questions[current];
+  const total = questions.length;
+  document.getElementById("qNumber").textContent = "QUESTION " + (current+1) + " OF " + total;
+  document.getElementById("qCategory").textContent = q.category;
+  document.getElementById("qHint").textContent = "Hint: " + q.hint;
+  document.getElementById("qText").textContent = q.q;
+  document.getElementById("feedback").className = "feedback";
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("progressBar").style.width = (current/total*100) + "%";
+  document.getElementById("progressText").textContent = current + "/" + total;
+  document.getElementById("scoreLive").textContent = correct + " correct";
+  const optDiv = document.getElementById("options");
+  optDiv.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerHTML = '<span class="option-letter">'+letters[i]+'</span>'+opt;
+    btn.onclick = () => select(i, btn);
+    optDiv.appendChild(btn);
+  });
+}
+
+function select(index, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  document.querySelectorAll(".option").forEach(b => b.disabled = true);
+  const cat = q.category;
+  if (!catScores[cat]) catScores[cat] = {correct:0, total:0};
+  catScores[cat].total++;
+  const feedback = document.getElementById("feedback");
+  const nextBtn = document.getElementById("nextBtn");
+  if (index === q.answer) {
+    btn.classList.add("correct");
+    feedback.className = "feedback correct";
+    feedback.innerHTML = "Correct — " + q.explanation;
+    correct++; catScores[cat].correct++;
+  } else {
+    btn.classList.add("wrong");
+    document.querySelectorAll(".option")[q.answer].classList.add("correct");
+    feedback.className = "feedback wrong";
+    feedback.innerHTML = "Not quite — " + q.explanation;
+    wrong++;
+  }
+  nextBtn.style.display = "inline-block";
+  nextBtn.textContent = current === questions.length-1 ? "SEE RESULTS" : "NEXT";
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) showResults();
+  else load();
+}
+
+function showResults() {
+  document.getElementById("quizContainer").style.display = "none";
+  document.getElementById("results").style.display = "block";
+  const pct = Math.round(correct/questions.length*100);
+  document.getElementById("scorePercent").textContent = pct + "%";
+  document.getElementById("correctCount").textContent = correct;
+  document.getElementById("wrongCount").textContent = wrong;
+  let grade = "";
+  if (pct === 100) grade = "Perfect. You understand GRC fundamentals completely.";
+  else if (pct >= 80) grade = "Strong result. You have solid GRC knowledge — keep building on it.";
+  else if (pct >= 60) grade = "Good effort. Review the explanations for the ones you missed.";
+  else if (pct >= 40) grade = "Getting there. GRC has a lot of depth — revisit the material and try again.";
+  else grade = "This is a broad field. Read through each explanation carefully and try again.";
+  document.getElementById("gradeText").textContent = grade;
+  const breakdown = document.getElementById("catBreakdown");
+  breakdown.innerHTML = "";
+  for (const [cat, data] of Object.entries(catScores)) {
+    const p = Math.round(data.correct/data.total*100);
+    const row = document.createElement("div");
+    row.className = "cat-row";
+    row.innerHTML = '<span class="cat-name">'+cat+'</span><div class="cat-bar-bg"><div class="cat-bar" style="width:'+p+'%"></div></div><span class="cat-score">'+data.correct+'/'+data.total+'</span>';
+    breakdown.appendChild(row);
+  }
+}
+
+function restart() {
+  current = 0; correct = 0; wrong = 0; answered = false;
+  Object.keys(catScores).forEach(k => delete catScores[k]);
+  document.getElementById("results").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+  load();
+}
+</script>
+</body>
+</html>

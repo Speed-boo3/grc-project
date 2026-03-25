@@ -389,6 +389,20 @@ pytest tests/ -v
 
 ---
 
+## Test your knowledge
+
+Built this quiz for students learning GRC from scratch. 20 questions across all 8 categories — each with a full explanation so you learn as you go.
+
+<div align="center">
+
+[![TAKE THE GRC QUIZ](https://img.shields.io/badge/TAKE%20THE%20GRC%20QUIZ-%20START%20%E2%86%92-4488ff?style=for-the-badge&labelColor=0d1117&color=4488ff)](https://speed-boo3.github.io/grc-project/quiz/)
+
+</div>
+
+Topics covered: What is GRC, Governance, Risk Management, Risk Scoring, ISO 27001, NIST CSF, Compliance, Network Exposure.
+
+---
+
 ## Want to learn more about GRC?
 
 - [ISO 27001 Overview](https://www.iso.org/isoiec-27001-information-security.html) — the international security management standard
