@@ -1,48 +1,131 @@
-# GRC Project
+<div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue?style=flat-square&logo=python)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Tests](https://img.shields.io/badge/Tests-13%20passing-brightgreen?style=flat-square)
-![ISO 27001](https://img.shields.io/badge/ISO-27001-blue?style=flat-square)
-![NIST CSF](https://img.shields.io/badge/NIST-CSF-navy?style=flat-square)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,40:0a1a2e,100:0055ff&height=220&section=header&text=GRC%20Project&fontSize=65&fontColor=4488ff&animation=fadeIn&fontAlignY=42&desc=Governance%20%7C%20Risk%20%7C%20Compliance%20%7C%20Built%20from%20scratch%20in%20Python&descAlignY=66&descColor=aaaaaa&descSize=15"/>
 
-A Governance, Risk and Compliance toolkit built in Python. It scores risks, scans the network for exposure, checks compliance against ISO 27001 and NIST CSF, and generates weekly reports.
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=17&duration=2500&pause=800&color=4488FF&center=true&vCenter=true&width=650&lines=What+is+GRC+and+why+does+it+matter%3F;Risk+Assessment+%26+Scoring;ISO+27001+%26+NIST+CSF+Compliance;Network+Exposure+Scanning;Automated+Weekly+Reports;Built+for+students+learning+security+governance"/>
+
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3.8+-0d1117?style=for-the-badge&logo=python&logoColor=00ff41)
+![Tests](https://img.shields.io/badge/Tests-13%20passing-0d1117?style=for-the-badge&logo=pytest&logoColor=00ff41)
+![ISO 27001](https://img.shields.io/badge/ISO-27001-0d1117?style=for-the-badge&logoColor=4488ff)
+![NIST CSF](https://img.shields.io/badge/NIST-CSF-0d1117?style=for-the-badge&logoColor=4488ff)
+![License](https://img.shields.io/badge/License-MIT-0d1117?style=for-the-badge&logoColor=white)
+
+</div>
 
 ---
 
-## How it works
+## What is this project?
+
+This is a hands-on GRC project built from scratch in Python. It is designed for students and anyone learning how security governance actually works in practice — not just what the frameworks say on paper.
+
+Every tool here solves a real problem that a GRC analyst deals with daily. You can run it, break it, modify it and learn from it.
+
+---
+
+## What is GRC?
+
+**Governance, Risk and Compliance** is the framework organisations use to manage their security posture strategically. While a SOC focuses on detecting and responding to threats in real time, GRC focuses on making sure the right controls exist to prevent those threats in the first place.
+
+Think of it this way:
+
+```mermaid
+flowchart LR
+    subgraph GOV[Governance]
+        direction TB
+        P[Policies]
+        PR[Procedures]
+        AC[Accountability]
+    end
+
+    subgraph RISK[Risk]
+        direction TB
+        ID[Identify risks]
+        SC[Score risks]
+        TR[Treat risks]
+    end
+
+    subgraph COMP[Compliance]
+        direction TB
+        FR[Frameworks]
+        AU[Audits]
+        CH[Checklists]
+    end
+
+    GOV --> ORG[Secure Organisation]
+    RISK --> ORG
+    COMP --> ORG
+
+    style GOV fill:#1a2a5a,stroke:#4488ff,color:#ffffff
+    style RISK fill:#5a1a1a,stroke:#ff4444,color:#ffffff
+    style COMP fill:#1a5a2a,stroke:#00ff41,color:#ffffff
+    style ORG fill:#2a2a2a,stroke:#aaaaaa,color:#ffffff
+```
+
+A GRC analyst answers questions like:
+- What are the biggest risks facing the organisation right now?
+- Do our security controls actually match what the policy says?
+- Are we compliant with ISO 27001, NIST or other frameworks?
+- What happens if this risk materialises — how bad would it be?
+- How do we prioritise what to fix first?
+
+---
+
+## The three pillars of GRC
+
+### Governance — setting the rules
+
+Governance is about defining who is responsible for security, what the rules are, and making sure those rules are followed. Without governance, security is just a collection of random tools with no strategy behind them.
+
+This project includes a security policy template that covers access control, patch management, incident response, data handling and physical security.
+
+### Risk — knowing what could go wrong
+
+Risk management is about systematically identifying threats, assessing how likely they are and how bad the impact would be, then deciding what to do about them.
 
 ```mermaid
 flowchart TD
-    A[📋 Risk register JSON] --> B[Risk Matrix]
-    C[🔍 Network scanner] --> D[nmap scan]
-    D --> E{Port risky?}
-    E -->|Yes| F[Risk entry created]
-    E -->|No| G[Skipped]
-    F --> B
-    B --> H[Scored + ranked risks]
-    I[✅ Compliance checklist] --> J[Control review]
-    H & J --> K[📊 Weekly report]
-    K --> L[reports/YYYY-MM-DD/]
+    A[Identify the risk] --> B[Score likelihood 1-5]
+    B --> C[Score impact 1-5]
+    C --> D[Calculate score\nlikelihood x impact]
+    D --> E{Score?}
+    E -->|1-4| F[Low]
+    E -->|5-9| G[Medium]
+    E -->|10-16| H[High]
+    E -->|17-25| I[Critical]
+    F & G & H & I --> J[Define treatment]
+    J --> K[Assign owner]
+    K --> L[Review regularly]
+
+    style F fill:#007722,stroke:#00ff41,color:#ffffff
+    style G fill:#bb7700,stroke:#ffaa00,color:#ffffff
+    style H fill:#cc4400,stroke:#ff6600,color:#ffffff
+    style I fill:#cc2200,stroke:#ff0000,color:#ffffff
+    style A fill:#1a3a8a,stroke:#4488ff,color:#ffffff
 ```
+
+### Compliance — checking the controls
+
+Compliance means verifying that your actual security controls match the requirements of a framework like ISO 27001 or NIST CSF. It is not enough to have a policy — you need to prove the controls are actually working.
 
 ---
 
-## Components
+## GRC categories — what GRC covers
 
-| Component | File | What it does |
+| Category | What it involves | Tools in this project |
 |---|---|---|
-| Risk Matrix | `grc/risk-assessment/risk_matrix.py` | Scores risks using likelihood × impact |
-| Network Scanner | `grc/network-scan/scanner.py` | Finds exposed ports and converts them to risks |
-| Security Policy | `grc/policies/security_policy.md` | Policy template covering key control areas |
-| Compliance Checklist | `grc/compliance/checklist.md` | ISO 27001 / NIST CSF control checklist |
-| Report Generator | `scripts/generate_report.py` | Generates weekly compliance and risk reports |
+| Risk Assessment | Identify, score and rank risks | `risk_matrix.py` |
+| Network Exposure | Find gaps between policy and reality | `scanner.py` |
+| Policy Management | Define rules for the organisation | `security_policy.md` |
+| Compliance Checking | Verify controls against frameworks | `checklist.md` |
+| Reporting | Track posture over time | `generate_report.py` |
 
 ---
 
 ## Risk scoring
 
-Risks are scored using **likelihood × impact**. Both values run from 1 to 5, giving a score between 1 and 25.
+Risks are scored using the standard **likelihood x impact** matrix. Both values run from 1 to 5, giving a score between 1 and 25.
 
 ```mermaid
 quadrantChart
@@ -61,12 +144,12 @@ quadrantChart
     Lost Laptop: [0.35, 0.55]
 ```
 
-| Score | Level |
-|---|---|
-| 1 – 4 | 🟢 Low |
-| 5 – 9 | 🟡 Medium |
-| 10 – 16 | 🟠 High |
-| 17 – 25 | 🔴 Critical |
+| Score | Level | What to do |
+|---|---|---|
+| 1 – 4 | Low | Accept or monitor |
+| 5 – 9 | Medium | Treat within 90 days |
+| 10 – 16 | High | Treat within 30 days |
+| 17 – 25 | Critical | Treat immediately |
 
 **Example output:**
 
@@ -87,74 +170,57 @@ RISK-006   Lost or stolen laptop           6       Medium     IT Operations
 
 ## Network scanning
 
-The scanner runs nmap against a target, identifies risky open ports and converts them directly into risk register entries. This closes the gap between what your policy says should be closed and what is actually exposed.
+One of the most important things in GRC is checking whether your controls on paper actually match what is happening on your network. The scanner finds open ports and converts them directly into risk register entries.
 
-> ⚠️ Only scan hosts you own or have explicit written permission to test.
+> Only scan hosts you own or have written permission to test.
 
 ```mermaid
 flowchart TD
-    A[🔍 scanner.py] --> B[nmap -sV scan]
-    B --> C[Open ports + versions]
-    C --> D{Known risky port?}
-    D -->|Yes| E[🔴 High risk entry]
-    D -->|Unexpected port| F[🟡 Medium risk entry]
-    D -->|Expected: 22 80 443| G[✅ No risk added]
-    E & F --> H[Risk JSON]
-    H --> I[risk_matrix.py]
-    I --> J[Scored risk register]
+    A[scanner.py runs] --> B[nmap scans the target]
+    B --> C[Open ports found]
+    C --> D{Is the port in\nthe risk list?}
+    D -->|Known risky port| E[High risk entry created]
+    D -->|Unexpected port| F[Medium risk entry created]
+    D -->|Expected: 22, 80, 443| G[No risk added]
+    E & F --> H[Risk JSON file]
+    H --> I[risk_matrix.py scores and ranks]
+    I --> J[GRC risk register updated]
+
+    style E fill:#cc2200,stroke:#ff0000,color:#ffffff
+    style F fill:#bb7700,stroke:#ffaa00,color:#ffffff
+    style G fill:#007722,stroke:#00ff41,color:#ffffff
+    style A fill:#1a3a8a,stroke:#4488ff,color:#ffffff
+    style J fill:#1a5a2a,stroke:#00ff41,color:#ffffff
 ```
 
-**Ports that trigger a High risk:**
+**Ports that automatically create a High risk entry:**
 
-| Port | Service | Why |
+| Port | Service | Why it is dangerous |
 |---|---|---|
 | 21 | FTP | Sends credentials in plaintext |
 | 23 | Telnet | Everything sent unencrypted |
-| 25 | SMTP | Open relay risk |
-| 445 | SMB | Primary ransomware vector |
-| 3389 | RDP | Constant brute force target |
-| 3306 | MySQL | Databases must not be publicly exposed |
+| 25 | SMTP | Open relay allows spam and spoofing |
+| 445 | SMB | Primary ransomware vector — WannaCry used this |
+| 3389 | RDP | Constant brute force and exploitation target |
+| 3306 | MySQL | Databases must never be publicly exposed |
 | 5432 | PostgreSQL | Same as MySQL |
-| 6379 | Redis | Often runs with no authentication |
-| 27017 | MongoDB | Misconfigured instances cause frequent breaches |
+| 6379 | Redis | Often runs with no authentication by default |
+| 27017 | MongoDB | Countless breaches from exposed instances |
 | 8080 | HTTP Alt | Dev servers often running without TLS |
-
-**Example scanner output:**
-
-```
-Network Scan Report
-Target  : localhost
-Date    : 2026-03-16 08:00
-============================================================
-
-Open ports found: 4
-  22     ssh
-  80     http
-  443    https
-  3306   mysql (8.0.32)
-
-Risks identified: 1
-
-  NET-3306 — MySQL exposed on port 3306
-    Port     : 3306 (mysql)
-    Reason   : Database should not be exposed outside the local network.
-    Score    : 16 -> High
-    Treatment: Close the port or restrict access with firewall rules.
-```
 
 ---
 
-## Compliance coverage
+## Compliance frameworks
 
-The checklist maps controls to both ISO 27001 and NIST CSF so you can track coverage across both frameworks at once.
+This project maps controls to two major frameworks. Understanding both is essential for any GRC role.
 
-| ISO 27001 | NIST CSF |
-|---|---|
-| Access Control | Identify |
-| Asset Management | Protect |
-| Incident Management | Detect |
-| Cryptography | Respond |
-| Physical Security | Recover |
+### ISO 27001
+
+ISO 27001 is the international standard for information security management. It defines a set of controls across 14 domains that organisations must implement to achieve certification.
+
+### NIST CSF
+
+The NIST Cybersecurity Framework organises security activities into five core functions that describe the full lifecycle of security management.
 
 ```mermaid
 flowchart LR
@@ -163,52 +229,96 @@ flowchart LR
         B[Asset Management]
         C[Incident Management]
         D[Cryptography]
+        E[Physical Security]
     end
     subgraph NIST[NIST CSF]
-        E[Identify]
-        F[Protect]
-        G[Detect]
-        H[Respond]
-        I[Recover]
+        F[Identify]
+        G[Protect]
+        H[Detect]
+        I[Respond]
+        J[Recover]
     end
-    A --> F
-    B --> E
-    C --> G
+
+    A --> G
+    B --> F
     C --> H
     C --> I
-    D --> F
+    C --> J
+    D --> G
+    E --> G
+
+    style ISO fill:#1a2a5a,stroke:#4488ff,color:#ffffff
+    style NIST fill:#1a5a2a,stroke:#00ff41,color:#ffffff
 ```
+
+**Coverage in this project:**
+
+| ISO 27001 Domain | NIST CSF Function | Checklist section |
+|---|---|---|
+| Access Control | Protect | Access Management |
+| Asset Management | Identify | Endpoint Security |
+| Incident Management | Respond, Recover | Incident Response |
+| Cryptography | Protect | Data Protection |
+| Physical Security | Protect | Physical Security |
+| Logging and Monitoring | Detect | Logging and Monitoring |
+
+---
+
+## How GRC and SOC connect
+
+GRC does not operate in isolation. The SOC detects threats in real time. GRC makes sure the controls that should prevent those threats are actually in place.
+
+```mermaid
+flowchart LR
+    A[Network scanner\nfinds open port] -->|Creates risk entry| B[Risk register]
+    B -->|Scored as High| C[GRC report\ncompliance drops]
+    C -->|Triggers review| D[Policy updated\nnew control defined]
+    D -->|New detection rule added| E[SOC monitors\nfor violations]
+    E -->|Alert fires| F[Incident investigated]
+    F -->|Findings fed back| B
+
+    style A fill:#cc2200,stroke:#ff0000,color:#ffffff
+    style B fill:#1a3a8a,stroke:#4488ff,color:#ffffff
+    style C fill:#bb7700,stroke:#ffaa00,color:#ffffff
+    style D fill:#1a5a2a,stroke:#00ff41,color:#ffffff
+    style E fill:#5a1a5a,stroke:#aa44ff,color:#ffffff
+    style F fill:#1a3a8a,stroke:#4488ff,color:#ffffff
+```
+
+The SOC and GRC feed each other. When the scanner finds something exposed, it feeds into the risk register. The policy is updated. The SOC gets a new detection rule. When an alert fires, the findings go back into the risk register. One continuous loop.
 
 ---
 
 ## Weekly reports
 
-A report is generated every Monday, Wednesday and Friday. Each report shows compliance score per control area, open risks by severity and alert trends from the SOC side. Reports are stored in `reports/YYYY-MM-DD/README.md`.
+A report runs automatically every Monday, Wednesday and Friday. Each report shows compliance score per control area, open risks by severity and alert trends. Reports are stored in `reports/YYYY-MM-DD/`.
 
 ```mermaid
 flowchart LR
-    A[Risk register] --> B[Score risks]
-    C[Compliance checklist] --> D[Review controls]
-    B & D --> E[Generate report]
-    E --> F[reports/YYYY-MM-DD/]
+    A[Risk register] --> C[generate_report.py]
+    B[Compliance checklist] --> C
+    C --> D[Mermaid charts]
+    D --> E[reports/YYYY-MM-DD/README.md]
+    E --> F[Visible on GitHub]
+
+    style A fill:#cc2200,stroke:#ff0000,color:#ffffff
+    style B fill:#1a3a8a,stroke:#4488ff,color:#ffffff
+    style F fill:#1a5a2a,stroke:#00ff41,color:#ffffff
 ```
 
 All reports are in the [`reports/`](./reports/README.md) folder.
 
 ---
 
-## How GRC and SOC connect
+## Tools
 
-```mermaid
-flowchart LR
-    A[🔍 Network scanner] -->|Exposed ports| B[Risk register]
-    B -->|Scored risks| C[GRC report]
-    C -->|Low score triggers| D[Policy update]
-    D -->|New control defined| E[SOC monitors for violations]
-    E -->|Alert fires| A
-```
-
-GRC defines what controls should be in place. The SOC monitors whether they are actually working. When the scanner finds something exposed that shouldn't be, it feeds into the risk register, the policy is updated, and the SOC gets a new rule to watch for. One loop, two tools.
+| Tool | File | What it does |
+|---|---|---|
+| Risk Matrix | `grc/risk-assessment/risk_matrix.py` | Scores and ranks risks using likelihood x impact |
+| Network Scanner | `grc/network-scan/scanner.py` | Finds exposed ports and converts them to risk entries |
+| Security Policy | `grc/policies/security_policy.md` | Policy template covering key control areas |
+| Compliance Checklist | `grc/compliance/checklist.md` | ISO 27001 and NIST CSF control checklist |
+| Report Generator | `scripts/generate_report.py` | Generates weekly compliance and risk reports |
 
 ---
 
@@ -218,24 +328,24 @@ GRC defines what controls should be in place. The SOC monitors whether they are 
 grc-project/
 ├── grc/
 │   ├── risk-assessment/
-│   │   ├── risk_matrix.py       ← likelihood × impact scoring engine
-│   │   └── sample_risks.json    ← example risk register
+│   │   ├── risk_matrix.py       <- likelihood x impact scoring engine
+│   │   └── sample_risks.json    <- example risk register with 6 risks
 │   ├── network-scan/
-│   │   └── scanner.py           ← nmap-based exposure scanner
+│   │   └── scanner.py           <- nmap-based exposure scanner
 │   ├── policies/
-│   │   └── security_policy.md  ← security policy template
+│   │   └── security_policy.md  <- security policy template
 │   └── compliance/
-│       └── checklist.md        ← ISO 27001 / NIST CSF checklist
+│       └── checklist.md        <- ISO 27001 and NIST CSF checklist
 ├── scripts/
-│   └── generate_report.py      ← weekly report generator
+│   └── generate_report.py      <- weekly report generator
 ├── reports/
-│   └── README.md               ← index of all reports
+│   └── README.md               <- index of all generated reports
 ├── tests/
-│   ├── test_risk_matrix.py     ← 8 risk matrix tests
-│   └── test_scanner.py         ← 5 scanner tests
+│   ├── test_risk_matrix.py     <- 8 risk matrix tests
+│   └── test_scanner.py         <- 5 scanner tests
 ├── .github/workflows/
-│   ├── tests.yml               ← runs on every push
-│   └── weekly-report.yml       ← Mon, Wed, Fri at 08:00 UTC
+│   ├── tests.yml               <- runs on every push
+│   └── weekly-report.yml       <- Mon, Wed, Fri at 08:00 UTC
 ├── requirements.txt
 ├── CONTRIBUTING.md
 └── CHANGELOG.md
@@ -271,7 +381,7 @@ python scripts/generate_report.py
 
 ## Tests
 
-13 tests covering the risk matrix and network scanner. Runs automatically on every push via GitHub Actions.
+13 tests covering the risk matrix and network scanner. Runs automatically on every push.
 
 ```bash
 pytest tests/ -v
@@ -279,6 +389,19 @@ pytest tests/ -v
 
 ---
 
+## Want to learn more about GRC?
+
+- [ISO 27001 Overview](https://www.iso.org/isoiec-27001-information-security.html) — the international security management standard
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) — the five-function security lifecycle
+- [NIST SP 800-30](https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final) — risk assessment guide
+- [CIS Controls](https://www.cisecurity.org/controls) — prioritised security best practices
+
+---
+
 ## Related
 
-The SOC side of this work is in [soc-project](https://github.com/Speed-boo3/soc-project) — log parsing, alert detection and MITRE ATT&CK-mapped rules. GRC defines what should be in place. SOC checks whether it is.
+The SOC side of this work is in [soc-project](https://github.com/Speed-boo3/soc-project). GRC defines what controls should be in place. SOC monitors whether they are working.
+
+<div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0055ff,50:0a1a2e,100:0d1117&height=120&section=footer&text=Govern.%20Assess.%20Comply.&fontSize=20&fontColor=4488ff&animation=twinkling"/>
+</div>
