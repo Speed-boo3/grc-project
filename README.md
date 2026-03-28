@@ -14,6 +14,18 @@
 
 ---
 
+## Interactive learning site
+
+<div align="center">
+
+[![Open the interactive guide](https://img.shields.io/badge/Interactive%20Guide-Learn%20GRC%20from%20scratch-4488ff?style=for-the-badge&labelColor=0d1117)](https://speed-boo3.github.io/grc-project/explain/)
+
+</div>
+
+Five interactive modules. Try the live risk scoring tool, explore compliance frameworks, build a security policy from scratch and work through a real ISO 27001 checklist.
+
+---
+
 ## Who this is for
 
 This project is for students learning cybersecurity who want to understand what GRC work actually looks like. Every concept is explained from scratch, every tool has real output you can run yourself, and the `frameworks/` and `templates/` folders contain material you can use directly in your own studies.
