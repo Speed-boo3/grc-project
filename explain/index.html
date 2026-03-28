@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GRC — Learn Governance, Risk and Compliance</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;800&display=swap');
 
   :root {
     --blue: #4488ff;
@@ -26,58 +26,130 @@
     color: var(--text);
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
+  /* ── ANIMATED HERO ── */
   .hero {
-    background: linear-gradient(135deg, #0d1117 0%, #0a1a2e 60%, #0a0a2a 100%);
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 60px 20px;
     text-align: center;
-    position: relative;
     overflow: hidden;
   }
 
-  .hero::before {
+  /* Floating particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up linear infinite;
+  }
+
+  @keyframes float-up {
+    0%   { opacity: 0; transform: translateY(0) scale(0); }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-400px) scale(1.5); }
+  }
+
+  /* Scanline overlay */
+  .hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(68,136,255,0.12) 0%, transparent 70%);
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(68,136,255,0.015) 2px,
+      rgba(68,136,255,0.015) 4px
+    );
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(68,136,255,0.12);
+    border: 1px solid rgba(68,136,255,0.3);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 0.78rem;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    animation: pulse-border 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(68,136,255,0.3); box-shadow: none; }
+    50% { border-color: rgba(68,136,255,0.8); box-shadow: 0 0 12px rgba(68,136,255,0.2); }
   }
 
   .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    color: var(--blue);
-    margin-bottom: 12px;
-    position: relative;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #4488ff 50%, #00ff41 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    animation: shimmer 4s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   .hero p {
     color: var(--muted);
     font-size: 1.05rem;
-    max-width: 620px;
+    max-width: 560px;
     margin: 0 auto 28px;
-    position: relative;
     line-height: 1.7;
   }
 
-  .hero-badges {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-  }
-
-  .badge {
+  /* ── ANIMATED COUNTER STRIP ── */
+  .stats-strip {
     background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
   }
 
+  .stat-item { text-align: center; }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--blue);
+    display: block;
+    animation: count-up 2s ease-out forwards;
+  }
+
+  .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+  /* ── TABS ── */
   .tabs {
     display: flex;
     border-bottom: 1px solid var(--border);
@@ -108,11 +180,16 @@
   .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
 
   .section { display: none; padding: 40px 20px; max-width: 920px; margin: 0 auto; }
-  .section.active { display: block; }
+  .section.active { display: block; animation: fade-in 0.3s ease; }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   .section-title {
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 8px;
     color: var(--blue);
   }
@@ -125,7 +202,58 @@
     max-width: 720px;
   }
 
-  /* PILLAR CARDS */
+  /* ── IMAGE CARDS ── */
+  .img-card {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .img-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .img-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.7);
+    transition: filter 0.3s;
+  }
+
+  .img-card:hover img { filter: brightness(0.9); }
+
+  .img-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  }
+
+  .img-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .img-card-body { font-size: 0.82rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  /* ── PILLAR CARDS ── */
   .pillar-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -134,51 +262,62 @@
   }
 
   .pillar-card {
-    border-radius: 12px;
-    padding: 26px;
+    border-radius: 14px;
+    padding: 28px;
     border: 1px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transition: opacity 0.4s;
+    border-radius: 50%;
   }
 
   .pillar-card:hover { transform: translateY(-4px); }
-  .pillar-card.gov { background: linear-gradient(135deg, #0a1a3a, #1a2a4a); border-color: var(--blue); }
-  .pillar-card.risk { background: linear-gradient(135deg, #2a0a0a, #3a1a1a); border-color: var(--red); }
-  .pillar-card.comp { background: linear-gradient(135deg, #0a2a0a, #1a3a1a); border-color: var(--green); }
+  .pillar-card:hover::before { opacity: 1; animation: ripple 1s ease-out; }
 
-  .pillar-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
-  .pillar-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+  @keyframes ripple {
+    0%   { transform: scale(0); opacity: 0.3; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+
+  .pillar-card.gov { background: linear-gradient(135deg, #0a1a3a, #1a2a4a); border-color: var(--blue); }
+  .pillar-card.gov::before { background: radial-gradient(circle, rgba(68,136,255,0.3), transparent); }
+  .pillar-card.risk { background: linear-gradient(135deg, #2a0a0a, #3a1a1a); border-color: var(--red); }
+  .pillar-card.risk::before { background: radial-gradient(circle, rgba(255,68,68,0.3), transparent); }
+  .pillar-card.comp { background: linear-gradient(135deg, #0a2a0a, #1a3a1a); border-color: var(--green); }
+  .pillar-card.comp::before { background: radial-gradient(circle, rgba(0,255,65,0.3), transparent); }
+
+  .pillar-icon {
+    font-size: 2.4rem;
+    margin-bottom: 14px;
+    display: block;
+    animation: bounce-slow 3s ease-in-out infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .pillar-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
   .pillar-question { font-size: 0.8rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
   .pillar-body { font-size: 0.85rem; color: #aaa; line-height: 1.65; }
 
-  /* CONCEPT CARDS */
-  .concept-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-
-  .concept-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .concept-card:hover { border-color: var(--blue); transform: translateY(-2px); }
-  .concept-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-  .concept-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
-  .concept-body { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
-
-  /* RISK MATRIX INTERACTIVE */
-  .risk-wrap { margin-bottom: 32px; }
-
+  /* ── RISK MATRIX ── */
   .risk-scenario-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
     margin-bottom: 24px;
   }
 
@@ -186,257 +325,166 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 16px;
+    padding: 14px;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
     font-size: 0.85rem;
   }
 
-  .risk-scenario:hover { border-color: var(--blue); }
+  .risk-scenario:hover { border-color: var(--blue); transform: scale(1.02); }
   .risk-scenario.selected { border-color: var(--blue); background: rgba(68,136,255,0.07); }
-  .risk-scenario-name { font-weight: 700; margin-bottom: 6px; font-size: 0.88rem; }
-  .risk-scenario-meta { color: var(--muted); font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; }
+  .risk-scenario-name { font-weight: 700; margin-bottom: 4px; }
+  .risk-scenario-meta { color: var(--muted); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
 
-  .risk-inputs {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
+  .risk-inputs { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
   .risk-input-group { flex: 1; min-width: 200px; }
-
-  .risk-input-group label {
-    display: block;
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .risk-slider { width: 100%; accent-color: var(--blue); }
+  .risk-input-group label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+  .risk-slider { width: 100%; accent-color: var(--blue); cursor: pointer; }
 
   .risk-result {
     background: var(--card);
     border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
+    border-radius: 14px;
+    padding: 32px;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .risk-result::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background: var(--result-color, transparent);
+    transition: opacity 0.4s;
   }
 
   .risk-score-big {
-    font-size: 4.5rem;
-    font-weight: 700;
+    font-size: 5rem;
+    font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     line-height: 1;
     margin-bottom: 8px;
+    transition: color 0.3s;
+    position: relative;
   }
 
-  .risk-level-label { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-  .risk-action { font-size: 0.88rem; color: var(--muted); }
-  .risk-explain { font-size: 0.83rem; color: #aaa; margin-top: 10px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .risk-level-label { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; transition: color 0.3s; position: relative; }
+  .risk-action { font-size: 0.88rem; color: var(--muted); position: relative; }
+  .risk-explain { font-size: 0.83rem; color: #aaa; margin-top: 12px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; position: relative; }
 
-  .level-scale {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-
-  .level-box {
-    border-radius: 8px;
-    padding: 14px;
-    text-align: center;
-    border: 1px solid;
-  }
-
+  .level-scale { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 32px; }
+  .level-box { border-radius: 8px; padding: 14px; text-align: center; border: 1px solid; transition: transform 0.2s; cursor: default; }
+  .level-box:hover { transform: translateY(-3px); }
   .level-score { font-weight: 700; font-size: 1.1rem; }
   .level-name { font-size: 0.85rem; margin: 4px 0; font-weight: 600; }
   .level-action { font-size: 0.75rem; color: #888; }
 
-  /* COMPLIANCE QUIZ */
-  .framework-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .fw-tab {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-
+  /* ── FRAMEWORK TABS ── */
+  .framework-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .fw-tab { padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--muted); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; font-family: inherit; }
   .fw-tab.active { border-color: var(--blue); color: var(--blue); background: rgba(68,136,255,0.08); }
-
   .fw-content { display: none; }
-  .fw-content.active { display: block; }
+  .fw-content.active { display: block; animation: fade-in 0.3s ease; }
 
-  .fw-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 12px;
-  }
-
+  .fw-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 12px; transition: border-color 0.2s; }
+  .fw-card:hover { border-color: var(--blue); }
   .fw-card-title { font-weight: 700; margin-bottom: 6px; font-size: 0.95rem; }
   .fw-card-body { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
 
-  /* POLICY BUILDER */
-  .policy-builder {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 32px;
-  }
-
-  .policy-header {
-    background: #0d1117;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  /* ── POLICY BUILDER ── */
+  .policy-builder { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+  .policy-header { background: #0d1117; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
   .dot { width: 12px; height: 12px; border-radius: 50%; }
   .dot.red { background: #ff5f56; }
   .dot.yellow { background: #ffbd2e; }
   .dot.green { background: #27c93f; }
-
   .policy-body { padding: 24px; }
 
-  .policy-section {
-    margin-bottom: 20px;
-    padding: 16px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .policy-section:hover { border-color: var(--blue); background: rgba(68,136,255,0.03); }
+  .policy-section { margin-bottom: 14px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .policy-section:hover { border-color: var(--blue); background: rgba(68,136,255,0.03); transform: translateX(4px); }
   .policy-section.added { border-color: var(--green); background: rgba(0,255,65,0.04); }
-
-  .policy-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-
+  .policy-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
   .policy-section-title { font-weight: 700; font-size: 0.92rem; }
-  .policy-add-btn {
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 4px 12px;
-    font-size: 0.78rem;
-    cursor: pointer;
-    font-family: inherit;
-  }
-
+  .policy-add-btn { background: var(--blue); color: #fff; border: none; border-radius: 6px; padding: 4px 12px; font-size: 0.78rem; cursor: pointer; font-family: inherit; transition: background 0.2s; }
   .policy-section.added .policy-add-btn { background: var(--green); color: #000; }
   .policy-section-body { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
-  .policy-output {
-    background: #0d1117;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    line-height: 1.8;
-    min-height: 80px;
-    color: #aaa;
-    margin-top: 20px;
-    white-space: pre-wrap;
-  }
+  .policy-output { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.8; min-height: 100px; color: #aaa; margin-top: 20px; white-space: pre-wrap; }
 
-  /* CHECKLIST */
+  /* ── CHECKLIST ── */
   .checklist { list-style: none; margin-bottom: 32px; }
-
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    background: var(--card);
-  }
-
-  .check-item:hover { border-color: var(--blue); }
+  .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; background: var(--card); }
+  .check-item:hover { border-color: var(--blue); transform: translateX(4px); }
   .check-item.checked { border-color: var(--green); background: rgba(0,255,65,0.04); }
-
-  .check-box {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--border);
-    border-radius: 5px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-    margin-top: 1px;
-  }
-
+  .check-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.2s; margin-top: 1px; }
   .check-item.checked .check-box { background: var(--green); border-color: var(--green); color: #000; }
-
   .check-text { flex: 1; }
   .check-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
   .check-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
 
-  .progress-bar-wrap {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    height: 8px;
-    margin-bottom: 8px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill { height: 100%; background: var(--blue); border-radius: 8px; transition: width 0.4s ease; width: 0%; }
+  .progress-bar-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 8px; height: 8px; margin-bottom: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); border-radius: 8px; transition: width 0.4s ease; width: 0%; }
   .progress-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
 
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.82rem;
+  footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.82rem; }
+  footer a { color: var(--blue); text-decoration: none; }
+
+  /* ── ANIMATED BACKGROUND ── */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image:
+      linear-gradient(var(--blue) 1px, transparent 1px),
+      linear-gradient(90deg, var(--blue) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
   }
 
-  footer a { color: var(--blue); text-decoration: none; }
+  @keyframes grid-move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+
+  .main-wrap { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
 
+<div class="bg-grid"></div>
+
+<div class="main-wrap">
+
 <div class="hero">
-  <h1>📋 GRC</h1>
-  <p>Learn Governance, Risk and Compliance from scratch. Built for students who want to understand what GRC analysts actually do and why it matters in every organisation.</p>
-  <div class="hero-badges">
-    <span class="badge">Governance</span>
-    <span class="badge">Risk Management</span>
-    <span class="badge">ISO 27001</span>
-    <span class="badge">NIST CSF</span>
-    <span class="badge">Compliance</span>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// CYBERSECURITY EDUCATION</div>
+    <h1>GRC</h1>
+    <p>Governance, Risk and Compliance. The strategic layer of cybersecurity that every organisation needs and most students overlook. Learn it here.</p>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-item">
+    <span class="stat-number" data-target="93">0</span>
+    <div class="stat-label">ISO 27001 controls</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="6">0</span>
+    <div class="stat-label">NIST CSF functions</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="25">0</span>
+    <div class="stat-label">Max risk score</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="72">0</span>
+    <div class="stat-label">Hours to report a GDPR breach</div>
   </div>
 </div>
 
@@ -451,8 +499,30 @@
 <!-- INTRO -->
 <div class="section active" id="intro">
   <div class="section-title">What is GRC?</div>
-  <div class="section-intro">
-    GRC stands for Governance, Risk and Compliance. It is the strategic layer of cybersecurity. While technical security teams deal with day-to-day threats, GRC makes sure the organisation has the right structure, knows its risks and can prove its controls are working. Almost every organisation above a certain size has a GRC function, and demand for people who understand it is growing fast.
+  <div class="section-intro">GRC stands for Governance, Risk and Compliance. It is the strategic layer of cybersecurity. While technical security teams handle day-to-day threats, GRC makes sure the organisation has the right structure, understands its risks and can prove its controls are working.</div>
+
+  <div class="img-grid">
+    <div class="img-card">
+      <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80" alt="Governance"/>
+      <div class="img-card-overlay">
+        <div class="img-card-title">🏛️ Governance</div>
+        <div class="img-card-body">Setting the rules. Who is responsible? What does secure look like? Are people following the policy?</div>
+      </div>
+    </div>
+    <div class="img-card">
+      <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=80" alt="Risk"/>
+      <div class="img-card-overlay">
+        <div class="img-card-title">⚠️ Risk</div>
+        <div class="img-card-body">What could go wrong? How likely is it? How bad would it be? What do we do about it?</div>
+      </div>
+    </div>
+    <div class="img-card">
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="Compliance"/>
+      <div class="img-card-overlay">
+        <div class="img-card-title">✅ Compliance</div>
+        <div class="img-card-body">Do our controls match what ISO 27001 and NIST CSF require? Can we prove it in an audit?</div>
+      </div>
+    </div>
   </div>
 
   <div class="pillar-grid">
@@ -460,87 +530,60 @@
       <span class="pillar-icon">🏛️</span>
       <div class="pillar-title" style="color:#4488ff">Governance</div>
       <div class="pillar-question">Who is responsible? What are the rules?</div>
-      <div class="pillar-body">Governance is about setting the rules and making sure people follow them. This includes writing security policies, defining roles and responsibilities, and making sure leadership is involved in security decisions. Without governance, security has no strategy behind it.</div>
+      <div class="pillar-body">Security policies, defined roles, management accountability. Without governance, security has no strategy behind it.</div>
     </div>
     <div class="pillar-card risk">
       <span class="pillar-icon">⚠️</span>
       <div class="pillar-title" style="color:#ff4444">Risk</div>
       <div class="pillar-question">What could go wrong? How bad?</div>
-      <div class="pillar-body">Risk management is about systematically identifying threats, scoring them by likelihood and impact, and deciding what to do about them. You cannot fix everything at once, so risk scoring tells you what to prioritise.</div>
+      <div class="pillar-body">Identify threats, score them by likelihood and impact, decide what to fix first. Not everything can be fixed at once.</div>
     </div>
     <div class="pillar-card comp">
       <span class="pillar-icon">✅</span>
       <div class="pillar-title" style="color:#00ff41">Compliance</div>
       <div class="pillar-question">Are controls working? Can we prove it?</div>
-      <div class="pillar-body">Compliance means meeting the requirements of a framework or regulation like ISO 27001 or GDPR. It is not enough to have a policy that says the right thing. You need to show, in an audit, that you actually do what the policy says.</div>
-    </div>
-  </div>
-
-  <div class="concept-grid">
-    <div class="concept-card">
-      <span class="concept-icon">📄</span>
-      <div class="concept-title">Security Policy</div>
-      <div class="concept-body">A written document that defines the rules everyone must follow. It covers access control, data handling, incident reporting and more. Without a policy, there is no baseline to measure against in an audit.</div>
-    </div>
-    <div class="concept-card">
-      <span class="concept-icon">📊</span>
-      <div class="concept-title">Risk Register</div>
-      <div class="concept-body">A live document tracking all identified risks, their scores and what is being done about them. It is the central artifact of risk management and is reviewed regularly by management.</div>
-    </div>
-    <div class="concept-card">
-      <span class="concept-icon">🔍</span>
-      <div class="concept-title">Gap Analysis</div>
-      <div class="concept-body">A comparison between where you are now and where a framework says you should be. The gaps become your remediation roadmap. The starting point for any compliance programme.</div>
-    </div>
-    <div class="concept-card">
-      <span class="concept-icon">🛡️</span>
-      <div class="concept-title">Control</div>
-      <div class="concept-body">A safeguard or countermeasure. Controls can be technical (a firewall), organisational (a policy) or physical (a lock). ISO 27001 has 93 of them. Your job in GRC is to select, implement and prove they work.</div>
-    </div>
-    <div class="concept-card">
-      <span class="concept-icon">⚖️</span>
-      <div class="concept-title">Risk Treatment</div>
-      <div class="concept-body">What you decide to do about a risk. You can mitigate it (add controls), transfer it (buy insurance), avoid it (stop doing the risky thing) or accept it (document the decision and move on).</div>
-    </div>
-    <div class="concept-card">
-      <span class="concept-icon">📋</span>
-      <div class="concept-title">Audit</div>
-      <div class="concept-body">A formal review of your controls by an internal or external auditor. They check whether your documented processes match what actually happens. GRC work is largely about being audit-ready at all times.</div>
+      <div class="pillar-body">Meet the requirements of ISO 27001, NIST CSF, GDPR. Show in an audit that you actually do what the policy says.</div>
     </div>
   </div>
 </div>
 
 <!-- RISK -->
 <div class="section" id="risk">
-  <div class="section-title">Risk scoring — try it yourself</div>
-  <div class="section-intro">
-    Every risk gets a score calculated by multiplying likelihood by impact. The score tells you how urgently it needs to be addressed. Try adjusting the sliders, or click a real-world scenario to load it.
+  <div class="section-title">Risk scoring</div>
+  <div class="section-intro">Every risk gets a score: likelihood × impact. The score tells you what to fix first. Click a real-world scenario or move the sliders yourself.</div>
+
+  <div class="img-card" style="margin-bottom:28px">
+    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=900&q=80" alt="Risk" style="height:180px"/>
+    <div class="img-card-overlay">
+      <div class="img-card-title">Risk management is about prioritisation</div>
+      <div class="img-card-body">You cannot fix everything at once. The score tells you what comes first.</div>
+    </div>
   </div>
 
   <div class="risk-scenario-grid">
-    <div class="risk-scenario" onclick="loadScenario(5,4,'Phishing attack','Very likely because it targets humans, not technology. Impact is high because credentials or data can be stolen.')">
+    <div class="risk-scenario" onclick="loadScenario(5,4,this,'Very likely because it targets people. High impact because credentials and data can be stolen.')">
       <div class="risk-scenario-name">Phishing attack</div>
-      <div class="risk-scenario-meta">Likelihood 5 × Impact 4</div>
+      <div class="risk-scenario-meta">L:5 × I:4 = 20</div>
     </div>
-    <div class="risk-scenario" onclick="loadScenario(4,5,'Unpatched systems','High likelihood because patches get missed. Critical impact because unpatched systems are frequently exploited in ransomware attacks.')">
+    <div class="risk-scenario" onclick="loadScenario(4,5,this,'High likelihood as patches get missed. Critical impact as unpatched systems are the main ransomware entry point.')">
       <div class="risk-scenario-name">Unpatched systems</div>
-      <div class="risk-scenario-meta">Likelihood 4 × Impact 5</div>
+      <div class="risk-scenario-meta">L:4 × I:5 = 20</div>
     </div>
-    <div class="risk-scenario" onclick="loadScenario(2,5,'Insider threat','Low likelihood because most employees are honest. But if it happens, impact is critical because insiders already have access.')">
+    <div class="risk-scenario" onclick="loadScenario(2,5,this,'Low likelihood as most employees are honest. But insiders already have access, making impact critical if it happens.')">
       <div class="risk-scenario-name">Insider threat</div>
-      <div class="risk-scenario-meta">Likelihood 2 × Impact 5</div>
+      <div class="risk-scenario-meta">L:2 × I:5 = 10</div>
     </div>
-    <div class="risk-scenario" onclick="loadScenario(3,2,'Lost laptop','Moderate likelihood. Low impact if the laptop is encrypted, which is why encryption is a standard control.')">
+    <div class="risk-scenario" onclick="loadScenario(3,2,this,'Moderate likelihood. Low impact if the laptop is encrypted, which is why encryption is a standard control.')">
       <div class="risk-scenario-name">Lost laptop</div>
-      <div class="risk-scenario-meta">Likelihood 3 × Impact 2</div>
+      <div class="risk-scenario-meta">L:3 × I:2 = 6</div>
     </div>
-    <div class="risk-scenario" onclick="loadScenario(3,5,'SQL injection breach','Possible if web apps are not tested. Critical impact because databases contain sensitive data.')">
-      <div class="risk-scenario-name">SQL injection breach</div>
-      <div class="risk-scenario-meta">Likelihood 3 × Impact 5</div>
+    <div class="risk-scenario" onclick="loadScenario(3,5,this,'Possible if web apps are not tested. Critical because databases contain sensitive data.')">
+      <div class="risk-scenario-name">SQL injection</div>
+      <div class="risk-scenario-meta">L:3 × I:5 = 15</div>
     </div>
-    <div class="risk-scenario" onclick="loadScenario(3,3,'DDoS attack','Possible and disruptive, but usually temporary. Impact depends on how long services are down.')">
+    <div class="risk-scenario" onclick="loadScenario(3,3,this,'Possible and disruptive but usually temporary. Impact depends on how quickly services are restored.')">
       <div class="risk-scenario-name">DDoS attack</div>
-      <div class="risk-scenario-meta">Likelihood 3 × Impact 3</div>
+      <div class="risk-scenario-meta">L:3 × I:3 = 9</div>
     </div>
   </div>
 
@@ -591,8 +634,13 @@
 <!-- FRAMEWORKS -->
 <div class="section" id="frameworks">
   <div class="section-title">Compliance frameworks</div>
-  <div class="section-intro">
-    Frameworks are structured sets of security controls that organisations use as a benchmark. They tell you what good security looks like. GRC analysts work with frameworks daily — selecting controls, assessing gaps and preparing for audits.
+  <div class="section-intro">Frameworks are the standards organisations measure themselves against. GRC analysts work with them daily — selecting controls, assessing gaps and preparing for audits.</div>
+
+  <div class="img-card" style="margin-bottom:28px">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Frameworks" style="height:180px"/>
+    <div class="img-card-overlay">
+      <div class="img-card-title">ISO 27001, NIST CSF and GDPR appear in almost every GRC job description</div>
+    </div>
   </div>
 
   <div class="framework-tabs">
@@ -603,130 +651,75 @@
 
   <div class="fw-content active" id="fw-iso">
     <div style="background:rgba(68,136,255,0.08);border:1px solid rgba(68,136,255,0.3);border-radius:10px;padding:18px;margin-bottom:20px;font-size:0.88rem;line-height:1.7;color:#ccc">
-      <strong style="color:#4488ff">ISO 27001</strong> is the international standard for information security management. Organisations can get certified by passing an external audit. It is the most widely recognised security certification in the world and appears in almost every GRC job description.
+      <strong style="color:#4488ff">ISO 27001</strong> is the international standard for information security management. Organisations get certified by passing an external audit. It is the most widely recognised security certification globally and appears in almost every GRC job description.
     </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Organisational controls</div>
-      <div class="fw-card-body">Covers security policies, roles and responsibilities, risk management, supplier relationships and how security is governed at the management level. This is the foundation everything else builds on.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">People controls</div>
-      <div class="fw-card-body">Covers screening new employees, security awareness training, disciplinary processes for violations and what happens when someone leaves the organisation. People are the most common attack vector.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Physical controls</div>
-      <div class="fw-card-body">Covers building access, equipment protection, clean desk policies and physical media. Often overlooked in technical security work but essential for a complete security programme.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Technological controls</div>
-      <div class="fw-card-body">Covers authentication, access rights, encryption, logging, vulnerability management, network security and software development practices. The largest category with 34 controls.</div>
-    </div>
+    <div class="fw-card"><div class="fw-card-title">Organisational controls</div><div class="fw-card-body">Security policies, roles and responsibilities, risk management and supplier relationships. The governance foundation.</div></div>
+    <div class="fw-card"><div class="fw-card-title">People controls</div><div class="fw-card-body">Screening, security awareness training, disciplinary processes and offboarding. People are the most common attack vector.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Physical controls</div><div class="fw-card-body">Building access, equipment protection, clean desk policies and physical media. Often overlooked but essential.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Technological controls</div><div class="fw-card-body">Authentication, access rights, encryption, logging, vulnerability management and software security. 34 controls in this category alone.</div></div>
   </div>
 
   <div class="fw-content" id="fw-nist">
     <div style="background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.25);border-radius:10px;padding:18px;margin-bottom:20px;font-size:0.88rem;line-height:1.7;color:#ccc">
-      <strong style="color:#00ff41">NIST CSF</strong> is the US National Institute of Standards and Technology Cybersecurity Framework. Version 2.0 was released in 2024 and added a sixth function: Govern. It is flexible, widely used and appears in almost all US-based GRC roles.
+      <strong style="color:#00ff41">NIST CSF 2.0</strong> organises security into six core functions. It is flexible, widely referenced in the US and increasingly globally. Version 2.0 added the Govern function in 2024.
     </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Govern — know your strategy</div>
-      <div class="fw-card-body">New in CSF 2.0. Covers organisational context, risk management strategy, roles and responsibilities, and cybersecurity policies. Sets the strategic direction for everything else.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Identify — know your assets</div>
-      <div class="fw-card-body">Understand your assets, business environment and risks. You cannot protect what you do not know about. Asset inventories and risk assessments live here.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Protect — put safeguards in place</div>
-      <div class="fw-card-body">Access control, training, data security, platform security and technology resilience. The controls that reduce the impact of an incident.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Detect — find threats that get through</div>
-      <div class="fw-card-body">Continuous monitoring, anomaly detection and alerting. The earlier you detect an incident, the less damage it causes.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Respond — take action</div>
-      <div class="fw-card-body">Incident response planning, communications, analysis and containment. What happens once a threat is confirmed.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Recover — get back to normal</div>
-      <div class="fw-card-body">Recovery planning, improvements and communications. Restoring capabilities after an incident and learning from what happened.</div>
-    </div>
+    <div class="fw-card"><div class="fw-card-title">Govern</div><div class="fw-card-body">New in 2.0. Sets the organisational context, risk strategy, roles and cybersecurity policies. Everything else builds on this.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Identify</div><div class="fw-card-body">Know your assets and risks. You cannot protect what you do not know about.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Protect</div><div class="fw-card-body">Access control, training, data security, platform security. Controls that reduce impact.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Detect</div><div class="fw-card-body">Continuous monitoring and alerting. Earlier detection means less damage.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Respond</div><div class="fw-card-body">Incident response planning, communications, containment. What happens when a threat is confirmed.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Recover</div><div class="fw-card-body">Restoring operations and learning from incidents. Resilience over time.</div></div>
   </div>
 
   <div class="fw-content" id="fw-gdpr">
     <div style="background:rgba(255,136,0,0.06);border:1px solid rgba(255,136,0,0.25);border-radius:10px;padding:18px;margin-bottom:20px;font-size:0.88rem;line-height:1.7;color:#ccc">
-      <strong style="color:#ff8800">GDPR</strong> is the EU General Data Protection Regulation. It applies to any organisation that processes data about EU residents, regardless of where the organisation is based. Non-compliance can result in fines of up to 4% of global annual revenue.
+      <strong style="color:#ff8800">GDPR</strong> applies to any organisation handling EU residents' data, regardless of where it is based. Fines can reach 4% of global annual revenue.
     </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Lawful basis for processing</div>
-      <div class="fw-card-body">Every time you collect or use personal data, you need a lawful reason. Consent, contract, legal obligation, vital interests, public task or legitimate interests. Documenting this is a GRC responsibility.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Data subject rights</div>
-      <div class="fw-card-body">Individuals have the right to access their data, correct it, delete it (right to be forgotten) and move it elsewhere (data portability). Organisations must be able to respond to these requests within 30 days.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Breach notification</div>
-      <div class="fw-card-body">If personal data is breached, you must notify the relevant data protection authority within 72 hours of becoming aware. If the breach is likely to cause harm to individuals, you must also notify them directly.</div>
-    </div>
-    <div class="fw-card">
-      <div class="fw-card-title">Data Protection Officer (DPO)</div>
-      <div class="fw-card-body">Certain organisations are required to appoint a DPO. They oversee GDPR compliance, advise on data protection impact assessments and act as the contact point for supervisory authorities.</div>
-    </div>
+    <div class="fw-card"><div class="fw-card-title">Lawful basis for processing</div><div class="fw-card-body">Every use of personal data needs a documented legal reason. Consent, contract, legal obligation, vital interests, public task or legitimate interests.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Data subject rights</div><div class="fw-card-body">Individuals can access, correct, delete and move their data. Organisations must respond within 30 days.</div></div>
+    <div class="fw-card"><div class="fw-card-title">72-hour breach notification</div><div class="fw-card-body">A personal data breach must be reported to the supervisory authority within 72 hours of becoming aware. This is a hard deadline.</div></div>
+    <div class="fw-card"><div class="fw-card-title">Data Protection Officer</div><div class="fw-card-body">Certain organisations must appoint a DPO. They oversee GDPR compliance and act as the contact for regulators.</div></div>
   </div>
 </div>
 
 <!-- POLICY BUILDER -->
 <div class="section" id="policy">
   <div class="section-title">Build a security policy</div>
-  <div class="section-intro">
-    A security policy is one of the most fundamental GRC documents. Click each section to add it to your policy. See how the document builds up as you make decisions — this is exactly what a GRC analyst does when setting up a programme from scratch.
+  <div class="section-intro">Click each section to add it to your policy. Watch it build in real time. This is exactly what a GRC analyst does when setting up a programme from scratch.</div>
+
+  <div class="img-card" style="margin-bottom:28px">
+    <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=900&q=80" alt="Policy" style="height:160px"/>
+    <div class="img-card-overlay">
+      <div class="img-card-title">A security policy is the foundation of every GRC programme</div>
+    </div>
   </div>
 
   <div class="policy-builder">
     <div class="policy-header">
-      <div class="dot red"></div>
-      <div class="dot yellow"></div>
-      <div class="dot green"></div>
+      <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
       <span style="margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#888">security-policy.md</span>
     </div>
     <div class="policy-body">
-      <div class="policy-section" id="ps-access" onclick="togglePolicy('access','Access Control','All systems require authentication. Users must only have access to what they need for their role. Admin access is reviewed every three months. Accounts unused for 90 days are disabled.')">
-        <div class="policy-section-header">
-          <div class="policy-section-title">Access Control</div>
-          <button class="policy-add-btn">Add to policy</button>
-        </div>
-        <div class="policy-section-body">Who can access what, and under what conditions. Covers authentication, least privilege and account lifecycle management.</div>
+      <div class="policy-section" id="ps-access" onclick="togglePolicy('access','Access Control','All systems require authentication. Users must only have access to what they need. Admin access is reviewed every three months. Accounts unused for 90 days are disabled.')">
+        <div class="policy-section-header"><div class="policy-section-title">Access Control</div><button class="policy-add-btn">Add</button></div>
+        <div class="policy-section-body">Who can access what, and under what conditions. Covers least privilege and account lifecycle.</div>
       </div>
-      <div class="policy-section" id="ps-patch" onclick="togglePolicy('patch','Patch Management','Critical security patches must be applied within 7 days of release. All other patches within 30 days. Patch status is tracked and reported to management monthly.')">
-        <div class="policy-section-header">
-          <div class="policy-section-title">Patch Management</div>
-          <button class="policy-add-btn">Add to policy</button>
-        </div>
-        <div class="policy-section-body">How and when security updates are applied. Defines timelines for critical vs standard patches and who is responsible.</div>
+      <div class="policy-section" id="ps-patch" onclick="togglePolicy('patch','Patch Management','Critical patches must be applied within 7 days. All other patches within 30 days. Status is reported monthly.')">
+        <div class="policy-section-header"><div class="policy-section-title">Patch Management</div><button class="policy-add-btn">Add</button></div>
+        <div class="policy-section-body">How and when security updates are applied. Defines timelines and ownership.</div>
       </div>
-      <div class="policy-section" id="ps-incident" onclick="togglePolicy('incident','Incident Response','All suspected security incidents must be reported immediately to the security team. Staff must not attempt to investigate incidents themselves. A post-incident review is conducted within 5 business days.')">
-        <div class="policy-section-header">
-          <div class="policy-section-title">Incident Response</div>
-          <button class="policy-add-btn">Add to policy</button>
-        </div>
-        <div class="policy-section-body">What to do when something goes wrong. Defines how to report incidents, who is responsible for responding and how findings are documented.</div>
+      <div class="policy-section" id="ps-incident" onclick="togglePolicy('incident','Incident Response','All incidents must be reported immediately. Staff must not investigate themselves. Post-incident review within 5 business days.')">
+        <div class="policy-section-header"><div class="policy-section-title">Incident Response</div><button class="policy-add-btn">Add</button></div>
+        <div class="policy-section-body">What to do when something goes wrong. Who responds and how findings are documented.</div>
       </div>
-      <div class="policy-section" id="ps-data" onclick="togglePolicy('data','Data Handling','Sensitive data must be encrypted at rest and in transit. It must not be stored on personal devices. Data that is no longer needed is securely deleted following the retention schedule.')">
-        <div class="policy-section-header">
-          <div class="policy-section-title">Data Handling</div>
-          <button class="policy-add-btn">Add to policy</button>
-        </div>
-        <div class="policy-section-body">How sensitive data is stored, transmitted and disposed of. Covers encryption requirements and retention schedules.</div>
+      <div class="policy-section" id="ps-data" onclick="togglePolicy('data','Data Handling','Sensitive data must be encrypted at rest and in transit. Not stored on personal devices. Deleted securely when no longer needed.')">
+        <div class="policy-section-header"><div class="policy-section-title">Data Handling</div><button class="policy-add-btn">Add</button></div>
+        <div class="policy-section-body">How sensitive data is stored, transmitted and disposed of.</div>
       </div>
-      <div class="policy-section" id="ps-physical" onclick="togglePolicy('physical','Physical Security','Workstations must be locked when unattended. Clean desk policy applies. Visitors must be escorted in secure areas.')">
-        <div class="policy-section-header">
-          <div class="policy-section-title">Physical Security</div>
-          <button class="policy-add-btn">Add to policy</button>
-        </div>
-        <div class="policy-section-body">Covers workstation locking, clean desk policy, visitor access and physical media handling.</div>
+      <div class="policy-section" id="ps-physical" onclick="togglePolicy('physical','Physical Security','Workstations must be locked when unattended. Clean desk policy applies. Visitors must be escorted.')">
+        <div class="policy-section-header"><div class="policy-section-title">Physical Security</div><button class="policy-add-btn">Add</button></div>
+        <div class="policy-section-body">Workstation locking, clean desk policy and visitor access.</div>
       </div>
-
       <div class="policy-output" id="policyOutput"># Security Policy
 
 Click the sections above to build your policy...</div>
@@ -737,99 +730,62 @@ Click the sections above to build your policy...</div>
 <!-- CHECKLIST -->
 <div class="section" id="checklist">
   <div class="section-title">ISO 27001 compliance checklist</div>
-  <div class="section-intro">
-    Work through this checklist to see how compliant a typical organisation is against ISO 27001. Each item is a real control from the standard. In a real audit, every unchecked item is a finding that needs to be addressed.
+  <div class="section-intro">Work through this checklist to see compliance coverage. Each item is a real ISO 27001 requirement. In a real audit, every unchecked item is a finding.</div>
+
+  <div class="img-card" style="margin-bottom:28px">
+    <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=900&q=80" alt="Checklist" style="height:160px"/>
+    <div class="img-card-overlay">
+      <div class="img-card-title">Compliance is about proving controls work, not just having them on paper</div>
+    </div>
   </div>
 
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
-  <div class="progress-label" id="progressLabel">0 / 12 controls passed</div>
+  <div class="progress-label" id="progressLabel">0 / 10 controls passed</div>
 
   <ul class="checklist">
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Information security policies are documented and approved</div>
-        <div class="check-desc">The organisation has written security policies that have been reviewed and approved by management. Without this, you have no governance baseline.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Security policies documented and approved by management</div><div class="check-desc">The foundation of ISO 27001. Without written, approved policies you have no governance baseline to audit against.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Roles and responsibilities for security are defined</div>
-        <div class="check-desc">Everyone knows who is responsible for what. Security cannot be everyone's responsibility and nobody's responsibility at the same time.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Roles and responsibilities for security defined</div><div class="check-desc">Everyone knows who is responsible for what. Security cannot be everyone's responsibility and nobody's at the same time.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">A risk assessment has been conducted</div>
-        <div class="check-desc">Risks have been identified, scored and documented in a risk register. This is the foundation of ISO 27001 — everything flows from understanding your risks.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Risk assessment conducted and risk register maintained</div><div class="check-desc">Risks identified, scored and documented. Everything in ISO 27001 flows from understanding your risks first.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Access control policy is implemented</div>
-        <div class="check-desc">Users only have access to what they need. Access is reviewed regularly and removed promptly when no longer needed.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Access control policy implemented with least privilege</div><div class="check-desc">Users only have access to what they need. Access reviewed regularly and removed when no longer required.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Cryptography is used for sensitive data</div>
-        <div class="check-desc">Sensitive data is encrypted at rest and in transit. Cryptographic keys are managed securely.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Sensitive data encrypted at rest and in transit</div><div class="check-desc">Cryptographic controls applied to data that matters. Keys managed securely and rotation in place.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Security awareness training is provided to all staff</div>
-        <div class="check-desc">All employees receive regular security training. People are still the most common attack vector and training is one of the most effective controls.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Security awareness training provided to all staff</div><div class="check-desc">People are still the most exploited attack vector. Training is one of the most cost-effective controls available.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Vulnerability management is in place</div>
-        <div class="check-desc">Systems are scanned for vulnerabilities regularly and patches are applied within defined timelines. Unpatched systems are one of the most exploited attack surfaces.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Vulnerability management in place with patch timelines</div><div class="check-desc">Systems scanned regularly. Critical patches applied within defined deadlines. Unpatched systems remain the primary ransomware entry point.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Logging and monitoring is active</div>
-        <div class="check-desc">Security events are logged and reviewed. Log integrity is protected. Without logs, you cannot detect or investigate incidents.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Security logging active and log integrity protected</div><div class="check-desc">Events are recorded, retained and reviewed. Without logs there is nothing to investigate when something goes wrong.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">An incident response plan exists and has been tested</div>
-        <div class="check-desc">The organisation knows what to do when an incident occurs. The plan has been rehearsed, not just written down.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Incident response plan documented and tested</div><div class="check-desc">The organisation knows exactly what to do when an incident occurs. Tested in practice, not just written down.</div></div>
     </li>
     <li class="check-item" onclick="toggleCheck(this)">
       <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Supplier security is managed</div>
-        <div class="check-desc">Third-party suppliers who handle your data or have access to your systems are assessed for security. Supply chain attacks are a major risk vector.</div>
-      </div>
-    </li>
-    <li class="check-item" onclick="toggleCheck(this)">
-      <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Business continuity and recovery plans exist</div>
-        <div class="check-desc">The organisation can recover from a significant incident. Backups are taken regularly and tested. Recovery time objectives are defined.</div>
-      </div>
-    </li>
-    <li class="check-item" onclick="toggleCheck(this)">
-      <div class="check-box"></div>
-      <div class="check-text">
-        <div class="check-title">Compliance with legal and regulatory requirements is monitored</div>
-        <div class="check-desc">The organisation tracks relevant laws, regulations and standards. Changes are identified and acted on. GDPR, sector-specific rules and contractual obligations are included.</div>
-      </div>
+      <div class="check-text"><div class="check-title">Business continuity and recovery plans in place</div><div class="check-desc">Backups taken and tested. Recovery time objectives defined. The organisation can survive a significant incident.</div></div>
     </li>
   </ul>
+</div>
+
 </div>
 
 <footer>
@@ -838,6 +794,37 @@ Click the sections above to build your policy...</div>
 </footer>
 
 <script>
+// Particles
+const container = document.getElementById('particles');
+const colors = ['#4488ff','#00ff41','#4488ff','#ffffff'];
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 6 + 2;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*20}%;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    animation-duration:${Math.random()*8+5}s;
+    animation-delay:${Math.random()*8}s;
+  `;
+  container.appendChild(p);
+}
+
+// Counter animation
+document.querySelectorAll('.stat-number').forEach(el => {
+  const target = parseInt(el.dataset.target);
+  let current = 0;
+  const step = Math.ceil(target / 40);
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = current;
+    if (current >= target) clearInterval(timer);
+  }, 40);
+});
+
+// Tabs
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -848,12 +835,13 @@ function show(id) {
 function showFW(id) {
   document.querySelectorAll('.fw-content').forEach(f => f.classList.remove('active'));
   document.querySelectorAll('.fw-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('fw-' + id).classList.add('active');
+  document.getElementById('fw-'+id).classList.add('active');
   event.target.classList.add('active');
 }
 
-const L_LABELS = ['','Rare','Unlikely','Possible','Likely','Almost certain'];
-const I_LABELS = ['','Negligible','Minor','Moderate','Major','Critical'];
+// Risk
+const LL = ['','Rare','Unlikely','Possible','Likely','Almost certain'];
+const IL = ['','Negligible','Minor','Moderate','Major','Critical'];
 
 function calcRisk(explain) {
   const l = parseInt(document.getElementById('likelihood').value);
@@ -861,25 +849,27 @@ function calcRisk(explain) {
   const score = l * i;
   document.getElementById('lVal').textContent = l;
   document.getElementById('iVal').textContent = i;
-  document.getElementById('lLabel').textContent = L_LABELS[l];
-  document.getElementById('iLabel').textContent = I_LABELS[i];
+  document.getElementById('lLabel').textContent = LL[l];
+  document.getElementById('iLabel').textContent = IL[i];
   document.getElementById('riskScore').textContent = score;
   let level, color, action;
-  if (score <= 4)       { level = 'Low';      color = '#00ff41'; action = 'Accept or monitor'; }
-  else if (score <= 9)  { level = 'Medium';   color = '#ffcc00'; action = 'Fix within 90 days'; }
-  else if (score <= 16) { level = 'High';     color = '#ff8800'; action = 'Fix within 30 days'; }
-  else                  { level = 'Critical'; color = '#ff4444'; action = 'Fix immediately'; }
+  if (score <= 4)       { level='Low';      color='#00ff41'; action='Accept or monitor'; }
+  else if (score <= 9)  { level='Medium';   color='#ffcc00'; action='Fix within 90 days'; }
+  else if (score <= 16) { level='High';     color='#ff8800'; action='Fix within 30 days'; }
+  else                  { level='Critical'; color='#ff4444'; action='Fix immediately'; }
   document.getElementById('riskScore').style.color = color;
   document.getElementById('riskLevel').textContent = level;
   document.getElementById('riskLevel').style.color = color;
   document.getElementById('riskAction').textContent = action;
-  document.getElementById('riskResult').style.borderColor = color;
-  if (explain) document.getElementById('riskExplain').textContent = explain;
+  const result = document.getElementById('riskResult');
+  result.style.borderColor = color;
+  result.style.boxShadow = `0 0 24px ${color}22`;
+  if (explain !== undefined) document.getElementById('riskExplain').textContent = explain;
 }
 
-function loadScenario(l, i, name, explain) {
+function loadScenario(l, i, el, explain) {
   document.querySelectorAll('.risk-scenario').forEach(s => s.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
+  el.classList.add('selected');
   document.getElementById('likelihood').value = l;
   document.getElementById('impact').value = i;
   calcRisk(explain);
@@ -887,44 +877,28 @@ function loadScenario(l, i, name, explain) {
 
 calcRisk('');
 
-const policyParts = {};
-
+// Policy
+const parts = {};
 function togglePolicy(key, title, text) {
-  const el = document.getElementById('ps-' + key);
+  const el = document.getElementById('ps-'+key);
   const btn = el.querySelector('.policy-add-btn');
-  if (policyParts[key]) {
-    delete policyParts[key];
-    el.classList.remove('added');
-    btn.textContent = 'Add to policy';
-  } else {
-    policyParts[key] = { title, text };
-    el.classList.add('added');
-    btn.textContent = 'Added';
-  }
-  renderPolicy();
+  if (parts[key]) { delete parts[key]; el.classList.remove('added'); btn.textContent='Add'; }
+  else { parts[key]={title,text}; el.classList.add('added'); btn.textContent='Added'; }
+  const keys = Object.keys(parts);
+  document.getElementById('policyOutput').textContent = keys.length === 0
+    ? '# Security Policy\n\nClick the sections above to build your policy...'
+    : '# Security Policy\n\n' + keys.map(k=>`## ${parts[k].title}\n\n${parts[k].text}`).join('\n\n');
 }
 
-function renderPolicy() {
-  const keys = Object.keys(policyParts);
-  if (keys.length === 0) {
-    document.getElementById('policyOutput').textContent = '# Security Policy\n\nClick the sections above to build your policy...';
-    return;
-  }
-  let out = '# Security Policy\n\n';
-  keys.forEach(k => {
-    out += `## ${policyParts[k].title}\n\n${policyParts[k].text}\n\n`;
-  });
-  document.getElementById('policyOutput').textContent = out.trim();
-}
-
+// Checklist
 function toggleCheck(item) {
   item.classList.toggle('checked');
   item.querySelector('.check-box').textContent = item.classList.contains('checked') ? '✓' : '';
-  const items = document.querySelectorAll('.check-item');
+  const total = document.querySelectorAll('.check-item').length;
   const checked = document.querySelectorAll('.check-item.checked').length;
-  const pct = Math.round((checked / items.length) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${checked} / ${items.length} controls passed (${pct}%)`;
+  const pct = Math.round(checked/total*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `${checked} / ${total} controls passed (${pct}%)`;
 }
 </script>
 </body>
