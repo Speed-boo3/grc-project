@@ -1,50 +1,116 @@
 [
   {
     "id": "RISK-001",
-    "name": "Unpatched systems",
+    "title": "Unpatched systems",
+    "description": "Critical systems running software with known CVEs. Patch cycle exceeds 30 days for non-critical updates.",
     "likelihood": 4,
     "impact": 5,
+    "score": 20,
+    "level": "Critical",
     "owner": "IT Operations",
-    "treatment": "Patch monthly, scan weekly with vulnerability scanner"
+    "treatment": "mitigate",
+    "status": "open",
+    "created": "2026-03-01",
+    "updated": "2026-03-20"
   },
   {
     "id": "RISK-002",
-    "name": "Phishing attack",
+    "title": "Phishing attack",
+    "description": "Staff targeted by credential harvesting emails. No MFA enforced on all accounts.",
     "likelihood": 5,
     "impact": 4,
+    "score": 20,
+    "level": "Critical",
     "owner": "Security Team",
-    "treatment": "User awareness training, email filtering, MFA"
+    "treatment": "mitigate",
+    "status": "open",
+    "created": "2026-03-01",
+    "updated": "2026-03-22"
   },
   {
     "id": "RISK-003",
-    "name": "Insider threat",
+    "title": "Insider threat",
+    "description": "Privileged users with excessive access rights. No user behaviour analytics in place.",
     "likelihood": 2,
     "impact": 5,
+    "score": 10,
+    "level": "High",
     "owner": "HR / Security",
-    "treatment": "Access control reviews, audit logging, separation of duties"
+    "treatment": "mitigate",
+    "status": "open",
+    "created": "2026-03-01",
+    "updated": "2026-03-15"
   },
   {
     "id": "RISK-004",
-    "name": "DDoS attack",
+    "title": "DDoS attack",
+    "description": "No CDN or DDoS mitigation in place for public-facing services.",
     "likelihood": 3,
     "impact": 3,
+    "score": 9,
+    "level": "Medium",
     "owner": "Network Team",
-    "treatment": "Rate limiting, upstream DDoS filtering service"
+    "treatment": "transfer",
+    "status": "open",
+    "created": "2026-03-05",
+    "updated": "2026-03-18"
   },
   {
     "id": "RISK-005",
-    "name": "Data breach via SQL injection",
+    "title": "SQL injection data breach",
+    "description": "Legacy web application has not been tested for OWASP Top 10 vulnerabilities.",
     "likelihood": 3,
     "impact": 5,
-    "owner": "Development Team",
-    "treatment": "Parameterized queries, input validation, WAF, pen testing"
+    "score": 15,
+    "level": "High",
+    "owner": "Dev Team",
+    "treatment": "mitigate",
+    "status": "open",
+    "created": "2026-03-08",
+    "updated": "2026-03-25"
   },
   {
     "id": "RISK-006",
-    "name": "Lost or stolen laptop",
+    "title": "Lost or stolen laptop",
+    "description": "Remote workforce using laptops without enforced full-disk encryption policy.",
     "likelihood": 3,
     "impact": 2,
+    "score": 6,
+    "level": "Medium",
     "owner": "IT Operations",
-    "treatment": "Full disk encryption, MDM remote wipe capability"
+    "treatment": "mitigate",
+    "status": "closed",
+    "created": "2026-03-01",
+    "updated": "2026-03-28",
+    "closed_note": "Full-disk encryption enforced via MDM policy. Risk accepted at residual level."
+  },
+  {
+    "id": "RISK-007",
+    "title": "Third-party supplier breach",
+    "description": "Key SaaS providers have access to customer data. No supplier security assessments conducted.",
+    "likelihood": 3,
+    "impact": 4,
+    "score": 12,
+    "level": "High",
+    "owner": "Procurement / Security",
+    "treatment": "mitigate",
+    "status": "open",
+    "created": "2026-03-10",
+    "updated": "2026-03-26"
+  },
+  {
+    "id": "RISK-008",
+    "title": "Cloud storage misconfiguration",
+    "description": "S3 buckets reviewed. Two buckets had public read enabled — corrected during scan.",
+    "likelihood": 2,
+    "impact": 4,
+    "score": 8,
+    "level": "Medium",
+    "owner": "Cloud / DevOps",
+    "treatment": "mitigate",
+    "status": "closed",
+    "created": "2026-03-12",
+    "updated": "2026-03-29",
+    "closed_note": "Block Public Access enabled on all buckets. CloudTrail alerts added for policy changes."
   }
 ]

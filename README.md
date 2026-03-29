@@ -267,6 +267,20 @@ The `templates/` folder contains three ready-to-use documents:
 
 ---
 
+## Risk register CLI
+
+Add, update and close risks directly from the terminal without editing JSON manually.
+
+```bash
+python grc/risk-assessment/risk_manager.py list
+python grc/risk-assessment/risk_manager.py list --status open
+python grc/risk-assessment/risk_manager.py add --title "Ransomware attack" --likelihood 4 --impact 5 --owner "Security Team"
+python grc/risk-assessment/risk_manager.py update RISK-001 --likelihood 3
+python grc/risk-assessment/risk_manager.py close RISK-006 --note "Laptop encryption enforced"
+```
+
+---
+
 ## Quickstart
 
 ```bash
