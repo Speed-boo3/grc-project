@@ -1,0 +1,54 @@
+<svg viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" width="800" height="140">
+  <rect width="800" height="140" fill="#0d1117" rx="10"/>
+
+  <!-- Governance -->
+  <rect x="10" y="20" width="240" height="100" rx="8" fill="#050a1a" stroke="#2979ff" stroke-width="1.5"/>
+  <rect x="10" y="20" width="240" height="36" rx="8" fill="rgba(41,121,255,0.08)"/>
+  <rect x="10" y="44" width="240" height="12" fill="rgba(41,121,255,0.08)"/>
+  <text x="130" y="43" text-anchor="middle" fill="#2979ff" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700">GOVERNANCE</text>
+  <text x="130" y="63" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Policies and accountability</text>
+  <text x="130" y="79" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Who is responsible for security?</text>
+  <text x="130" y="93" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">What are the rules?</text>
+  <text x="130" y="107" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Are they being followed?</text>
+
+  <!-- Pulse on Governance -->
+  <rect x="10" y="20" width="240" height="100" rx="8" fill="none" stroke="#2979ff" stroke-width="1">
+    <animate attributeName="stroke-opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Arrow 1 -->
+  <line x1="252" y1="70" x2="278" y2="70" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="278,66 286,70 278,74" fill="#475569"/>
+
+  <!-- Risk Management -->
+  <rect x="288" y="20" width="224" height="100" rx="8" fill="#1a0505" stroke="#e53935" stroke-width="1.5"/>
+  <rect x="288" y="20" width="224" height="36" rx="8" fill="rgba(229,57,53,0.08)"/>
+  <rect x="288" y="44" width="224" height="12" fill="rgba(229,57,53,0.08)"/>
+  <text x="400" y="43" text-anchor="middle" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700">RISK MANAGEMENT</text>
+  <text x="400" y="63" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Identify, assess and mitigate</text>
+  <text x="400" y="79" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">What could go wrong?</text>
+  <text x="400" y="93" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">How likely and how bad?</text>
+  <text x="400" y="107" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">What do we do about it?</text>
+
+  <rect x="288" y="20" width="224" height="100" rx="8" fill="none" stroke="#e53935" stroke-width="1">
+    <animate attributeName="stroke-opacity" values="0.2;0.8;0.2" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Arrow 2 -->
+  <line x1="514" y1="70" x2="540" y2="70" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="540,66 548,70 540,74" fill="#475569"/>
+
+  <!-- Compliance -->
+  <rect x="550" y="20" width="240" height="100" rx="8" fill="#001a00" stroke="#00e676" stroke-width="1.5"/>
+  <rect x="550" y="20" width="240" height="36" rx="8" fill="rgba(0,230,118,0.06)"/>
+  <rect x="550" y="44" width="240" height="12" fill="rgba(0,230,118,0.06)"/>
+  <text x="670" y="43" text-anchor="middle" fill="#00e676" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700">COMPLIANCE</text>
+  <text x="670" y="63" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Prove the controls work</text>
+  <text x="670" y="79" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">GDPR, HIPAA, PCI-DSS</text>
+  <text x="670" y="93" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">ISO 27001 / NIST CSF</text>
+  <text x="670" y="107" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Audits and documentation</text>
+
+  <rect x="550" y="20" width="240" height="100" rx="8" fill="none" stroke="#00e676" stroke-width="1">
+    <animate attributeName="stroke-opacity" values="0.2;0.8;0.2" dur="4s" begin="2.6s" repeatCount="indefinite"/>
+  </rect>
+</svg>

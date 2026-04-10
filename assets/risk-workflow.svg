@@ -1,0 +1,55 @@
+<svg viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" width="800" height="100">
+  <rect width="800" height="100" fill="#0d1117" rx="10"/>
+
+  <!-- Step 1 -->
+  <rect x="10" y="18" width="130" height="64" rx="7" fill="#050a1a" stroke="#2979ff" stroke-width="1.5"/>
+  <text x="75" y="42" text-anchor="middle" fill="#2979ff" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">IDENTIFY</text>
+  <text x="75" y="56" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">What threats exist?</text>
+  <text x="75" y="68" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Internal + external</text>
+
+  <line x1="142" y1="50" x2="162" y2="50" stroke="#2979ff" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.7s" repeatCount="indefinite"/>
+  </line>
+  <polygon points="162,46 170,50 162,54" fill="#2979ff"/>
+
+  <!-- Step 2 -->
+  <rect x="172" y="18" width="130" height="64" rx="7" fill="#1a0d00" stroke="#ff9100" stroke-width="1.5"/>
+  <text x="237" y="42" text-anchor="middle" fill="#ff9100" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">ASSESS</text>
+  <text x="237" y="56" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Likelihood x impact</text>
+  <text x="237" y="68" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Score 1-25</text>
+
+  <line x1="304" y1="50" x2="324" y2="50" stroke="#ff9100" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.7s" repeatCount="indefinite" begin="0.15s"/>
+  </line>
+  <polygon points="324,46 332,50 324,54" fill="#ff9100"/>
+
+  <!-- Step 3 -->
+  <rect x="334" y="18" width="130" height="64" rx="7" fill="#1a0505" stroke="#e53935" stroke-width="1.5"/>
+  <text x="399" y="42" text-anchor="middle" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">MITIGATE</text>
+  <text x="399" y="56" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Treat / accept</text>
+  <text x="399" y="68" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">transfer / avoid</text>
+
+  <line x1="466" y1="50" x2="486" y2="50" stroke="#e53935" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.7s" repeatCount="indefinite" begin="0.3s"/>
+  </line>
+  <polygon points="486,46 494,50 486,54" fill="#e53935"/>
+
+  <!-- Step 4 -->
+  <rect x="496" y="18" width="130" height="64" rx="7" fill="#001a00" stroke="#00e676" stroke-width="1.5"/>
+  <text x="561" y="42" text-anchor="middle" fill="#00e676" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">MONITOR</text>
+  <text x="561" y="56" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Track over time</text>
+  <text x="561" y="68" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Weekly reports</text>
+
+  <line x1="628" y1="50" x2="648" y2="50" stroke="#00e676" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.7s" repeatCount="indefinite" begin="0.45s"/>
+  </line>
+  <polygon points="648,46 656,50 648,54" fill="#00e676"/>
+
+  <!-- Step 5 -->
+  <rect x="658" y="18" width="132" height="64" rx="7" fill="#1a1200" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="724" y="42" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">REPORT</text>
+  <text x="724" y="56" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Compliance score</text>
+  <text x="724" y="68" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Audit evidence</text>
+
+  <text x="400" y="92" text-anchor="middle" fill="#333" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="2">GRC RISK MANAGEMENT WORKFLOW</text>
+</svg>

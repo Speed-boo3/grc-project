@@ -1,0 +1,39 @@
+<svg viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" width="800" height="110">
+  <rect width="800" height="110" fill="#0d1117" rx="10"/>
+  <text x="400" y="20" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="2">FRAMEWORKS COVERED IN THIS PROJECT</text>
+
+  <!-- NIST CSF -->
+  <rect x="10" y="30" width="148" height="64" rx="7" fill="#050a1a" stroke="#2979ff" stroke-width="1"/>
+  <text x="84" y="52" text-anchor="middle" fill="#2979ff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">NIST CSF</text>
+  <text x="84" y="66" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Govern · Identify</text>
+  <text x="84" y="78" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Protect · Detect</text>
+  <text x="84" y="88" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Respond · Recover</text>
+
+  <!-- ISO 27001 -->
+  <rect x="168" y="30" width="148" height="64" rx="7" fill="#1a0505" stroke="#e53935" stroke-width="1"/>
+  <text x="242" y="52" text-anchor="middle" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">ISO 27001</text>
+  <text x="242" y="66" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">93 controls</text>
+  <text x="242" y="78" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">4 themes</text>
+  <text x="242" y="88" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">International standard</text>
+
+  <!-- GDPR -->
+  <rect x="326" y="30" width="148" height="64" rx="7" fill="#001a0a" stroke="#00e676" stroke-width="1"/>
+  <text x="400" y="52" text-anchor="middle" fill="#00e676" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">GDPR</text>
+  <text x="400" y="66" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Data protection</text>
+  <text x="400" y="78" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">EU regulation</text>
+  <text x="400" y="88" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">4% fine / €20M</text>
+
+  <!-- PCI DSS -->
+  <rect x="484" y="30" width="148" height="64" rx="7" fill="#1a1200" stroke="#fbbf24" stroke-width="1"/>
+  <text x="558" y="52" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">PCI DSS</text>
+  <text x="558" y="66" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Payment card data</text>
+  <text x="558" y="78" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">12 requirements</text>
+  <text x="558" y="88" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Mandatory for payments</text>
+
+  <!-- COBIT -->
+  <rect x="642" y="30" width="148" height="64" rx="7" fill="#1a001a" stroke="#ce93d8" stroke-width="1"/>
+  <text x="716" y="52" text-anchor="middle" fill="#ce93d8" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">COBIT</text>
+  <text x="716" y="66" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">IT governance</text>
+  <text x="716" y="78" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">Aligns IT with</text>
+  <text x="716" y="88" text-anchor="middle" fill="#475569" font-family="JetBrains Mono,monospace" font-size="8">business goals</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg" width="800" height="160">
+  <rect width="800" height="160" fill="#0d1117" rx="10"/>
+
+  <!-- Header -->
+  <rect width="800" height="28" fill="#161b22" rx="10"/>
+  <rect y="18" width="800" height="10" fill="#161b22"/>
+  <circle cx="18" cy="14" r="5" fill="#ff5f56"/>
+  <circle cx="36" cy="14" r="5" fill="#ffbd2e"/>
+  <circle cx="54" cy="14" r="5" fill="#27c93f"/>
+  <text x="400" y="19" text-anchor="middle" fill="#555" font-family="JetBrains Mono,monospace" font-size="10">risk_matrix.py — live register</text>
+
+  <!-- Column headers -->
+  <text x="20" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">ID</text>
+  <text x="90" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">RISK</text>
+  <text x="360" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">L</text>
+  <text x="390" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">I</text>
+  <text x="420" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">SCORE</text>
+  <text x="490" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">LEVEL</text>
+  <text x="600" y="46" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">OWNER</text>
+  <line x1="10" y1="50" x2="790" y2="50" stroke="#1e2d45" stroke-width="1"/>
+
+  <!-- Row 1: Critical -->
+  <rect x="10" y="52" width="780" height="20" rx="3" fill="rgba(229,57,53,0.06)"/>
+  <text x="20" y="66" fill="#666" font-family="JetBrains Mono,monospace" font-size="9">RISK-002</text>
+  <text x="90" y="66" fill="#e2e8f0" font-family="JetBrains Mono,monospace" font-size="9">Phishing attack</text>
+  <text x="365" y="66" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">5</text>
+  <text x="395" y="66" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">4</text>
+  <text x="425" y="66" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">20</text>
+  <text x="490" y="66" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">CRITICAL</text>
+  <text x="600" y="66" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Security Team</text>
+
+  <!-- Row 2: Critical -->
+  <text x="20" y="86" fill="#666" font-family="JetBrains Mono,monospace" font-size="9">RISK-001</text>
+  <text x="90" y="86" fill="#e2e8f0" font-family="JetBrains Mono,monospace" font-size="9">Unpatched systems</text>
+  <text x="365" y="86" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">4</text>
+  <text x="395" y="86" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">5</text>
+  <text x="425" y="86" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">20</text>
+  <text x="490" y="86" fill="#e53935" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">CRITICAL</text>
+  <text x="600" y="86" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">IT Operations</text>
+
+  <!-- Row 3: High -->
+  <rect x="10" y="92" width="780" height="20" rx="3" fill="rgba(255,109,0,0.04)"/>
+  <text x="20" y="106" fill="#666" font-family="JetBrains Mono,monospace" font-size="9">RISK-005</text>
+  <text x="90" y="106" fill="#e2e8f0" font-family="JetBrains Mono,monospace" font-size="9">SQL injection data breach</text>
+  <text x="365" y="106" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">3</text>
+  <text x="395" y="106" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">5</text>
+  <text x="425" y="106" fill="#ff6d00" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">15</text>
+  <text x="490" y="106" fill="#ff6d00" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">HIGH</text>
+  <text x="600" y="106" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Dev Team</text>
+
+  <!-- Row 4: Medium -->
+  <text x="20" y="126" fill="#666" font-family="JetBrains Mono,monospace" font-size="9">RISK-004</text>
+  <text x="90" y="126" fill="#e2e8f0" font-family="JetBrains Mono,monospace" font-size="9">DDoS attack</text>
+  <text x="365" y="126" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">3</text>
+  <text x="395" y="126" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">3</text>
+  <text x="425" y="126" fill="#fbbf24" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">9</text>
+  <text x="490" y="126" fill="#fbbf24" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">MEDIUM</text>
+  <text x="600" y="126" fill="#94a3b8" font-family="JetBrains Mono,monospace" font-size="9">Network Team</text>
+
+  <!-- Row 5: Closed -->
+  <rect x="10" y="132" width="780" height="20" rx="3" fill="rgba(0,230,118,0.03)"/>
+  <text x="20" y="146" fill="#666" font-family="JetBrains Mono,monospace" font-size="9">RISK-006</text>
+  <text x="90" y="146" fill="#666" font-family="JetBrains Mono,monospace" font-size="9" text-decoration="line-through">Lost or stolen laptop</text>
+  <text x="425" y="146" fill="#00e676" font-family="JetBrains Mono,monospace" font-size="9">6</text>
+  <text x="490" y="146" fill="#00e676" font-family="JetBrains Mono,monospace" font-size="9">CLOSED</text>
+  <text x="600" y="146" fill="#475569" font-family="JetBrains Mono,monospace" font-size="9">Encryption enforced</text>
+</svg>
