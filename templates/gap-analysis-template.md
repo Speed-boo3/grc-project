@@ -1,89 +1,99 @@
-# Gap Analysis Template
+# ISO 27001:2022 Gap Analysis
 
-A gap analysis compares where you are now against where a framework says you should be. The result is a list of gaps that become your remediation roadmap.
-
----
-
-## How to use this
-
-Work through each control area. For each one, mark the current status and note what is missing. The gap column is what you need to fix.
-
-**Status options:**
-- Fully implemented
-- Partially implemented
-- Not implemented
-- Not applicable
+**Organisation:**  
+**Analyst:**  
+**Date:** April 2026  
+**Standard:** ISO 27001:2022  
 
 ---
 
-## ISO 27001 Gap Analysis
+## How to use this template
 
-### Organisational controls
+For each control:
+- **Compliant** — control is fully implemented and documented
+- **Partial** — control exists but has gaps or is not formally documented
+- **Gap** — control is not in place
+- **N/A** — control does not apply; document the justification
 
-| Control | Description | Status | Gap / Notes |
-|---------|-------------|--------|-------------|
+All gaps must be added to the risk register with a remediation owner and deadline.
+
+---
+
+## Clause 4–10 — ISMS Requirements
+
+| Clause | Requirement | Status | Evidence | Gap / Action |
+|---|---|---|---|---|
+| 4.1 | Understand the organisation and its context | | | |
+| 4.2 | Understand needs and expectations of interested parties | | | |
+| 4.3 | Determine the scope of the ISMS | | | |
+| 5.1 | Leadership and commitment | | | |
+| 5.2 | Information security policy | | | |
+| 6.1 | Risk assessment process | | | |
+| 6.2 | Information security objectives | | | |
+| 7.2 | Competence | | | |
+| 7.3 | Awareness | | | |
+| 8.2 | Information security risk assessment | | | |
+| 8.3 | Information security risk treatment | | | |
+| 9.1 | Monitoring, measurement, analysis and evaluation | | | |
+| 9.2 | Internal audit | | | |
+| 9.3 | Management review | | | |
+| 10.1 | Nonconformity and corrective action | | | |
+
+---
+
+## Annex A — Selected Controls
+
+### Organisational Controls
+
+| Control | Requirement | Status | Gap / Action |
+|---|---|---|---|
 | 5.1 | Policies for information security | | |
 | 5.2 | Information security roles and responsibilities | | |
-| 5.3 | Segregation of duties | | |
-| 5.10 | Acceptable use of information | | |
-| 5.15 | Access control | | |
+| 5.7 | Threat intelligence | | |
+| 5.9 | Inventory of information and assets | | |
+| 5.19 | Information security in supplier relationships | | |
 | 5.23 | Information security for use of cloud services | | |
 | 5.24 | Information security incident management planning | | |
+| 5.30 | ICT readiness for business continuity | | |
 
-### People controls
+### Technological Controls
 
-| Control | Description | Status | Gap / Notes |
-|---------|-------------|--------|-------------|
-| 6.1 | Screening | | |
-| 6.3 | Information security awareness and training | | |
-| 6.4 | Disciplinary process | | |
-| 6.5 | Responsibilities after termination | | |
-
-### Physical controls
-
-| Control | Description | Status | Gap / Notes |
-|---------|-------------|--------|-------------|
-| 7.1 | Physical security perimeters | | |
-| 7.2 | Physical entry | | |
-| 7.7 | Clear desk and clear screen | | |
-| 7.9 | Security of assets off-premises | | |
-
-### Technological controls
-
-| Control | Description | Status | Gap / Notes |
-|---------|-------------|--------|-------------|
+| Control | Requirement | Status | Gap / Action |
+|---|---|---|---|
 | 8.2 | Privileged access rights | | |
 | 8.5 | Secure authentication | | |
 | 8.7 | Protection against malware | | |
 | 8.8 | Management of technical vulnerabilities | | |
+| 8.9 | Configuration management | | |
 | 8.15 | Logging | | |
+| 8.16 | Monitoring activities | | |
 | 8.24 | Use of cryptography | | |
+| 8.28 | Secure coding | | |
 
 ---
 
-## NIST CSF Gap Analysis
+## Emerging requirements (2026)
 
-| Function | Category | Current state | Target state | Gap |
-|----------|----------|--------------|--------------|-----|
-| Identify | Asset Management | | | |
-| Identify | Risk Assessment | | | |
-| Protect | Access Control | | | |
-| Protect | Awareness and Training | | | |
-| Protect | Data Security | | | |
-| Detect | Continuous Monitoring | | | |
-| Detect | Detection Processes | | | |
-| Respond | Incident Response Planning | | | |
-| Respond | Communications | | | |
-| Recover | Recovery Planning | | | |
+| Area | Applicable regulation | Status | Action |
+|---|---|---|---|
+| AI/LLM governance | ISO/IEC 42001:2023 | | |
+| NIS2 incident reporting | NIS2 Directive | | |
+| DORA resilience | DORA (Jan 2025) | | |
+| Post-quantum cryptography | NIST PQC standards | | |
+| Supply chain SBOM | ISO 27001:2022 8.30 | | |
 
 ---
 
-## Remediation roadmap
+## Summary
 
-List the gaps in priority order based on risk score. The highest risk gaps should be addressed first.
+| Status | Count |
+|---|---|
+| Compliant | |
+| Partial | |
+| Gap | |
+| N/A | |
+| **Total controls assessed** | |
 
-| Priority | Gap | Risk score | Owner | Target date | Status |
-|----------|-----|-----------|-------|-------------|--------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
+**Estimated time to close gaps:**  
+**Estimated cost:**  
+**Recommended audit readiness date:**  

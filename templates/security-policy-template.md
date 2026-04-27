@@ -1,91 +1,114 @@
-# Security Policy Template
+# Information Security Policy Template
 
-**Organisation:** [Name]
-**Version:** 1.0
-**Owner:** [Name / Team]
-**Last reviewed:** [Date]
-**Next review:** [Date]
-
----
-
-## Purpose
-
-This policy defines the rules and responsibilities for protecting information and systems within [Organisation]. It applies to all staff, contractors and anyone with access to company systems.
+**Version:**  
+**Date:** April 2026  
+**Owner:**  
+**Approved by:**  
+**Review date:** April 2027  
 
 ---
 
-## Access Control
+This template follows ISO 27001:2022 and NIST CSF 2.0. Replace all placeholder text before use.
 
-All systems require authentication before access is granted. Users must only have access to what they need for their role.
-
-Admin accounts must be separate from day-to-day user accounts. Admin access is reviewed every three months.
-
-Accounts unused for 90 days are disabled. When someone leaves the organisation, their accounts are disabled within 24 hours.
-
-Passwords must be at least 12 characters. Multi-factor authentication is required for all remote access.
+Sections marked **(NIS2)** are required for organisations in scope of the NIS2 Directive.
+Sections marked **(DORA)** are required for financial sector organisations in scope of DORA.
+Sections marked **(GDPR)** are required for organisations processing EU personal data.
 
 ---
 
-## Patch Management
+## 1. Purpose and scope
 
-Critical security patches must be applied within 7 days of release.
+[Describe what this policy covers and who it applies to.]
 
-All other patches must be applied within 30 days.
-
-Patch status is tracked monthly and reported to management.
+Applies to: all employees, contractors, third-party suppliers and anyone accessing [ORGANISATION] systems.
 
 ---
 
-## Data Classification
+## 2. Information security objectives
 
-Data is classified into four levels:
+[List 3–5 measurable security objectives for the year. Examples:]
 
-**Public** - No restrictions on access or sharing.
-
-**Internal** - For staff only. Not for external distribution.
-
-**Confidential** - Restricted to specific teams. Requires encryption in transit and at rest.
-
-**Restricted** - Highest sensitivity. Access requires explicit approval from management.
+- Achieve and maintain ISO 27001:2022 certification
+- Reduce mean time to detect (MTTD) security incidents to under 4 hours
+- Complete NIS2 gap assessment by Q2 2026
+- Train 100% of staff in security awareness annually
 
 ---
 
-## Incident Reporting
+## 3. Roles and responsibilities
 
-All suspected security incidents must be reported immediately to [security team contact].
-
-Staff must not attempt to investigate or resolve incidents themselves. Report and escalate.
-
-A post-incident review is conducted for all significant incidents within five business days.
-
----
-
-## Physical Security
-
-Workstations must be locked when unattended.
-
-Sensitive documents must not be left on desks overnight (clean desk policy).
-
-Visitors must be escorted in secure areas.
+| Role | Responsibilities |
+|---|---|
+| Board | Overall accountability for information security risk **(NIS2)** |
+| CISO / Security Lead | Policy ownership, risk oversight, incident escalation |
+| IT Team | Control implementation, monitoring, patch management |
+| All staff | Follow policy, report incidents, complete training |
+| Third parties | Comply with supplier security requirements |
 
 ---
 
-## Acceptable Use
+## 4. Risk management
 
-Company systems are for business purposes. Limited personal use is acceptable if it does not interfere with work or create security risks.
+[Describe the risk assessment approach. Reference the risk register template.]
 
-Staff must not install unauthorised software. Software requests go through [IT / helpdesk].
-
-Connecting personal devices to company networks requires approval.
+Risk is assessed using likelihood × impact scoring. The risk register is reviewed quarterly.
 
 ---
 
-## Exceptions
+## 5. Access control
 
-Any exception to this policy must be documented and approved by [security team / management]. Exceptions are reviewed every six months.
+[Minimum requirements:]
+- Least privilege
+- MFA for all privileged and remote access
+- Quarterly access reviews
+- Joiners/movers/leavers process within 24 hours
 
 ---
 
-## Enforcement
+## 6. Incident response **(NIS2)**
 
-Violations of this policy may result in disciplinary action up to and including termination. Serious violations may be referred to law enforcement.
+[Describe the incident response process. Reference the IR playbook.]
+
+- Report incidents within 1 hour of detection
+- NIS2 early warning within 24 hours of significant incidents
+- Full notification to authority within 72 hours
+- Post-incident report within 5 business days
+
+---
+
+## 7. Data protection **(GDPR)**
+
+[Describe data classification, processing principles and breach notification.]
+
+- 72-hour breach notification to supervisory authority
+- Data minimisation — collect only what is needed
+- No transfer outside EU/EEA without adequate safeguards
+
+---
+
+## 8. AI and emerging technology governance
+
+[Describe policy for use of AI tools including LLMs.]
+
+- Approval required before using AI tools for work purposes
+- No confidential or personal data in external AI services
+- AI-generated security outputs require human review
+- Aligns with ISO/IEC 42001:2023
+
+---
+
+## 9. Business continuity **(DORA)**
+
+[Describe backup, recovery and resilience requirements.]
+
+---
+
+## 10. Exceptions
+
+Exceptions require written approval. Maximum duration 90 days. All exceptions tracked in risk register.
+
+---
+
+## 11. Review
+
+This policy is reviewed annually or after a significant security incident or regulatory change.

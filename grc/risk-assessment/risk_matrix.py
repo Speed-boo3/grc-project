@@ -21,7 +21,7 @@ def assess_risks(risks):
         score = risk["likelihood"] * risk["impact"]
         results.append({
             "id": risk["id"],
-            "name": risk["name"],
+            "name": risk.get("title", risk.get("name", "Unknown")),
             "likelihood": risk["likelihood"],
             "likelihood_label": LIKELIHOOD_LABELS[risk["likelihood"]],
             "impact": risk["impact"],
@@ -35,7 +35,7 @@ def assess_risks(risks):
 
 
 def print_report(results):
-    print("\nRisk Assessment Report")
+    print("\nRisk Assessment Report — GRC Project 2026")
     print("=" * 70)
     print(f"{'ID':<10} {'Risk':<32} {'Score':<7} {'Level':<10} {'Owner'}")
     print("-" * 70)

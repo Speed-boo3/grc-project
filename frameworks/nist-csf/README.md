@@ -1,31 +1,59 @@
-# NIST Cybersecurity Framework (CSF)
+# NIST Cybersecurity Framework 2.0 (2024)
 
-## What is it
+## What it is
 
-The NIST CSF was developed by the US National Institute of Standards and Technology. It gives organisations a structured way to understand and improve their cybersecurity posture. Unlike ISO 27001, it is not a certification standard. It is a flexible framework you can adopt at any level of maturity.
+The NIST CSF was developed by the US National Institute of Standards and Technology. It gives organisations a common language and structure for managing cybersecurity risk. Unlike ISO 27001, it is not a certification standard — it is a flexible framework you adopt at any level of maturity.
 
-Version 2.0 was released in 2024 and added a sixth function: Govern.
+Version 2.0 was released in February 2024. The major change was adding a sixth function: **Govern**.
+
+---
 
 ## The six core functions
 
-**Govern** - Establish and monitor the organisation's cybersecurity risk management strategy, policies and roles. Added in CSF 2.0.
+| Function | Focus | Key question |
+|---|---|---|
+| **Govern** | Strategy, roles, policy, oversight | Are we set up to manage cybersecurity risk? |
+| **Identify** | Assets, risks, business context | What do we have and what could go wrong? |
+| **Protect** | Safeguards and controls | What have we put in place to prevent incidents? |
+| **Detect** | Monitoring and anomaly detection | How quickly do we find out something is wrong? |
+| **Respond** | Incident response and communications | What do we do when an incident occurs? |
+| **Recover** | Restoration and resilience | How do we get back to normal? |
 
-**Identify** - Understand your assets, risks and business context. You cannot protect what you do not know about.
+The order is deliberate. You cannot protect what you have not identified. You cannot respond effectively without a plan. Govern was added because organisations were implementing strong technical controls with no strategic direction.
 
-**Protect** - Put safeguards in place. Access control, training, data security, platform security, technology resilience.
+---
 
-**Detect** - Find cybersecurity events in a timely way. Continuous monitoring, anomaly detection, alerting.
+## Why CSF 2.0 matters in 2026
 
-**Respond** - Take action when an incident is detected. Incident response planning, communications, analysis, containment.
+**Govern function** is now the foundation. Boards and executives are expected to have direct accountability for cybersecurity risk. This aligns with NIS2 requirements that came into force in October 2024.
 
-**Recover** - Restore capabilities after an incident. Recovery planning, improvements, communications.
+**Supply chain risk** (ID.SC) is expanded significantly. Third-party and software supply chain risk is now treated with the same rigour as internal risk.
 
-## Why it matters for GRC students
+**AI and emerging technology** is explicitly referenced. Organisations using AI tools must assess and manage the associated risks within the CSF framework.
 
-NIST CSF is one of the most commonly referenced frameworks in job descriptions. Understanding it helps you speak the same language as hiring managers and security teams. It also maps well to ISO 27001, so knowing one helps you understand the other.
+---
 
-## Useful links
+## Mapping to this project
 
-- [Official NIST CSF page](https://www.nist.gov/cyberframework)
-- [NIST CSF 2.0 full document](https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf)
-- [NIST CSF quick start guide](https://www.nist.gov/system/files/documents/2018/12/10/csf-quick-start-guide-infographic.pdf)
+| GRC project component | CSF function |
+|---|---|
+| `grc/risk-assessment/risk_matrix.py` | Govern, Identify |
+| `grc/network-scan/scanner.py` | Identify, Detect |
+| `grc/compliance/checklist.md` | All six functions |
+| `grc/policies/security_policy.md` | Govern, Protect |
+| `scripts/generate_report.py` | Govern (reporting) |
+
+---
+
+## CSF vs ISO 27001
+
+| | NIST CSF 2.0 | ISO 27001:2022 |
+|---|---|---|
+| Certification | No | Yes |
+| Prescriptiveness | Low — flexible | High — specific controls |
+| Primary audience | US-originated, global | Global, strong in Europe |
+| Cost to implement | Lower | Higher |
+| Used for | Internal maturity | Customer/regulator assurance |
+| Audit requirement | No | Yes |
+
+Most mature organisations use both — CSF as the internal management framework, ISO 27001 for external certification.

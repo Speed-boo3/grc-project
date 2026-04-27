@@ -1,65 +1,73 @@
 # Risk Register Template
 
-Use this template to document and track risks in your organisation or lab environment.
+**Organisation:**  
+**Owner:** Security Team  
+**Last reviewed:** April 2026  
+**Review frequency:** Quarterly  
 
 ---
 
-## How to use this
+## Scoring guide
 
-1. Identify a risk and give it a unique ID
-2. Write a short description of what could happen
-3. Score the likelihood from 1 to 5
-4. Score the impact from 1 to 5
-5. Multiply them to get the risk score
-6. Decide on a treatment strategy
-7. Assign an owner and a target date
-8. Update the status as you work on it
+**Likelihood**
 
-## Likelihood scale
+| Score | Label | Description |
+|---|---|---|
+| 1 | Rare | Could happen but very unlikely in the next 12 months |
+| 2 | Unlikely | Could happen but would be unusual |
+| 3 | Possible | Might happen at some point |
+| 4 | Likely | Will probably happen in the next 12 months |
+| 5 | Almost certain | Expected to happen, may already be occurring |
 
-| Score | Label | Meaning |
-|-------|-------|---------|
-| 1 | Rare | Unlikely to happen in the next 5 years |
-| 2 | Unlikely | Could happen but not expected |
-| 3 | Possible | Might happen once in the next year |
-| 4 | Likely | Expected to happen at some point this year |
-| 5 | Almost certain | Will almost certainly happen |
+**Impact**
 
-## Impact scale
+| Score | Label | Description |
+|---|---|---|
+| 1 | Negligible | Minimal disruption, no data loss, no regulatory impact |
+| 2 | Minor | Short-term disruption, limited data, minor regulatory concern |
+| 3 | Moderate | Significant disruption, some personal data, potential regulatory breach |
+| 4 | Major | Serious disruption, significant data breach, regulatory fines likely |
+| 5 | Critical | Business-threatening, mass data breach, severe financial and regulatory consequences |
 
-| Score | Label | Meaning |
-|-------|-------|---------|
-| 1 | Negligible | Minor inconvenience, no data at risk |
-| 2 | Minor | Small disruption, limited data exposure |
-| 3 | Moderate | Significant disruption or data loss |
-| 4 | Major | Serious harm, large data breach possible |
-| 5 | Critical | Catastrophic, could close the organisation |
+**Risk level** = Likelihood × Impact
 
-## Risk score reference
+| Score | Level | Action |
+|---|---|---|
+| 17–25 | 🔴 Critical | Immediate action — escalate to board |
+| 10–16 | 🟠 High | Remediate within 30 days |
+| 5–9 | 🟡 Medium | Remediate within 90 days |
+| 1–4 | 🟢 Low | Accept or monitor |
 
-| Score | Level | Action required |
-|-------|-------|-----------------|
-| 1 to 4 | Low | Accept or monitor |
-| 5 to 9 | Medium | Treat within 90 days |
-| 10 to 16 | High | Treat within 30 days |
-| 17 to 25 | Critical | Treat immediately |
+---
+
+## Treatment options
+
+- **Mitigate** — implement controls to reduce likelihood or impact
+- **Accept** — document the risk and accept it at current level (requires sign-off)
+- **Transfer** — insurance, outsourcing or contractual transfer of risk
+- **Avoid** — stop the activity that creates the risk
 
 ---
 
 ## Risk register
 
-| ID | Risk description | Likelihood | Impact | Score | Level | Treatment | Owner | Due date | Status |
-|----|-----------------|-----------|--------|-------|-------|-----------|-------|----------|--------|
-| RISK-001 | [Describe the risk here] | [1-5] | [1-5] | [L x I] | [Low/Medium/High/Critical] | [Accept/Mitigate/Transfer/Avoid] | [Name/Team] | [Date] | [Open/In progress/Closed] |
+| ID | Title | Description | Likelihood | Impact | Score | Level | Owner | Treatment | Status | Due | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| RISK-001 | | | | | | | | | Open | | |
+| RISK-002 | | | | | | | | | Open | | |
 
 ---
 
-## Treatment strategies explained
+## Closed risks
 
-**Accept** - The risk score is low enough that it is not worth the cost of fixing. Document the decision.
+| ID | Title | Score | Closed date | How it was treated |
+|---|---|---|---|---|
+| | | | | |
 
-**Mitigate** - Put controls in place to reduce the likelihood or impact. This is the most common strategy.
+---
 
-**Transfer** - Shift the financial impact to a third party, typically through insurance.
+## Review history
 
-**Avoid** - Stop doing the thing that creates the risk entirely. Only possible in some situations.
+| Date | Reviewer | Changes |
+|---|---|---|
+| April 2026 | | Initial review |
